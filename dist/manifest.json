@@ -1,0 +1,21 @@
+{
+  "short_name": "Wersee",
+  "name": "Wersee Workspace",
+  "icons": [
+    {
+      "src": "https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#000000",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#000000"
+}

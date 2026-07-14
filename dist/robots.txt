@@ -1,0 +1,54 @@
+# robots.txt — wersee.com
+# https://www.robotstxt.org/robotstxt.html
+
+# ── Allow all well-behaved crawlers ──────────────────────────────
+User-agent: *
+Allow: /
+
+# Private / authenticated areas — block crawlers
+Disallow: /workspace
+Disallow: /workspace/
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /chat
+Disallow: /chat/
+Disallow: /setup
+Disallow: /setup-account
+Disallow: /upload-mobile/
+Disallow: /admin/
+Disallow: /oauth/
+Disallow: /verify
+Disallow: /logged-out
+Disallow: /payment-success
+Disallow: /free-confirm/
+Disallow: /access/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /ai-checkout/
+Disallow: /builder/
+Disallow: /management/
+
+# Payment / POS flows (dynamic, no crawl value)
+Disallow: /pay/
+Disallow: /sandbox/
+Disallow: /quick-pay/
+Disallow: /invoice/
+
+# Affiliate join
+Disallow: /affiliate/join
+
+# ── Google-specific directives ────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /
+
+# ── Bing ──────────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 2
+
+# ── Sitemap ───────────────────────────────────────────────────────
+Sitemap: https://wersee.com/sitemap.xml

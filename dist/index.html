@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Prevent cross-fetch or other libraries from throwing when trying to set window.fetch
+      if (typeof window !== 'undefined') {
+        const originalFetch = window.fetch;
+        try {
+          // Use a more robust way to handle fetch assignment
+          let currentFetch = originalFetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: () => currentFetch,
+            set: (v) => {
+              // Allow setting it but we'll still use the original one for our needs if we want
+              // or just let it be updated. The error "only a getter" happens if 'set' is missing.
+              currentFetch = v;
+            }
+          });
+        } catch (e) {
+          console.warn('Failed to define fetch property:', e);
+        }
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover" />
+    <meta name="description" content="Wersee is the all-in-one platform for creators and businesses to sell digital products, services, and subscriptions." />
+    <meta name="keywords" content="digital products, sell online, creator economy, business platform, subscriptions, services, wersee" />
+    <meta name="author" content="Wersee" />
+    <link rel="canonical" href="https://wersee.com/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wersee.com/" />
+    <meta property="og:title" content="Wersee - Your Business OS" />
+    <meta property="og:description" content="Manage your business, payments, and community with Wersee. The ultimate platform for the creator economy." />
+    <meta property="og:image" content="https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png" />
+    <meta property="og:site_name" content="Wersee" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://wersee.com/" />
+    <meta name="twitter:title" content="Wersee - Your Business OS" />
+    <meta name="twitter:description" content="Manage your business, payments, and community with Wersee. The ultimate platform for the creator economy." />
+    <meta name="twitter:image" content="https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png" />
+    <meta name="twitter:site" content="@wersee" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png" />
+    <link rel="apple-touch-icon" href="https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png" />
+    
+    <meta name="theme-color" content="#0A0A0A" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <title>Wersee - Your Business OS</title>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Wersee",
+        "url": "https://wersee.com",
+        "logo": "https://pkgwzusngqwnmdfpifnd.supabase.co/storage/v1/object/public/icons-logos/Ontwerp_zonder_titel__1_-removebg-preview%20(1).png",
+        "sameAs": [
+          "https://twitter.com/wersee",
+          "https://instagram.com/wersee",
+          "https://linkedin.com/company/wersee"
+        ],
+        "description": "Wersee is the all-in-one platform for creators and businesses to sell digital products, services, and subscriptions."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Wersee",
+        "url": "https://wersee.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://wersee.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/index-zfO5PWjq.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-ui-jyAJHuaU.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-CLgBUBf5.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-three-Cztl1x3g.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-supabase-BsFxXWHi.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-utils-DIRkSgxV.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-pdf-CB2ZsslJ.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-_ewFR-M2.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-stripe-BAuT-szD.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-editor-DudCF1wX.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-D0on9Zs-.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-Ckjjpx1I.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script async defer src="https://accounts.google.com/gsi/client"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
