@@ -1,0 +1,10 @@
+{
+  "name": "Remix: Remix: Remix: Remix: Wersee Workspace",
+  "description": "The premium marketplace and business manager for design, services, and more.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera",
+    "display-capture",
+    "notifications"
+  ]
+}

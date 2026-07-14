@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Wersee</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #0A0A0A;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #fff;
+      user-select: none;
+    }
+
+    .app {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Left panel (branding) ──────────────────────────── */
+    .brand-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0D0D1A 0%, #0A0A0A 60%, #0F0A1A 100%);
+    }
+
+    .brand-panel .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+    .orb-1 {
+      width: 400px; height: 400px;
+      background: rgba(99,102,241,0.15);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: rgba(168,85,247,0.12);
+      bottom: -80px; right: -60px;
+      animation-delay: -4s;
+    }
+    .orb-3 {
+      width: 200px; height: 200px;
+      background: rgba(59,130,246,0.10);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -2s;
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 48px;
+    }
+
+    .logo-container {
+      width: 88px;
+      height: 88px;
+      background: #fff;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      box-shadow: 0 0 60px rgba(99,102,241,0.3), 0 20px 40px rgba(0,0,0,0.4);
+      animation: logoEntry 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: scale(0.8) translateY(20px);
+    }
+    .logo-container img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      filter: invert(1);
+    }
+
+    .brand-title {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      font-style: italic;
+      margin-bottom: 12px;
+      animation: fadeUp 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .brand-tagline {
+      font-size: 15px;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      animation: fadeUp 0.6s 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+
+    .features {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: fadeUp 0.6s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 20px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .fi-blue { background: rgba(99,102,241,0.15); }
+    .fi-purple { background: rgba(168,85,247,0.15); }
+    .fi-green { background: rgba(16,185,129,0.15); }
+    .feature-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      font-weight: 500;
+    }
+
+    /* ── Right panel (auth form) ────────────────────────── */
+    .auth-panel {
+      width: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px;
+      background: #0F0F0F;
+      border-left: 1px solid rgba(255,255,255,0.06);
+      animation: panelSlide 0.6s 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateX(20px);
+    }
+
+    .auth-header {
+      margin-bottom: 36px;
+    }
+    .auth-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 8px;
+    }
+    .auth-subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      height: 52px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 0 16px;
+      font-size: 15px;
+      color: #fff;
+      font-family: inherit;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-input::placeholder {
+      color: rgba(255,255,255,0.2);
+    }
+    .form-input:focus {
+      border-color: rgba(99,102,241,0.5);
+      background: rgba(99,102,241,0.04);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      height: 52px;
+      border: none;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #6366F1, #818CF8);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: -0.2px;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(99,102,241,0.3);
+    }
+    .btn-primary:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      height: 52px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.7);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+    .divider-text {
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      font-weight: 500;
+    }
+
+    .alt-link {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      margin-top: 20px;
+    }
+    .alt-link a {
+      color: #818CF8;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .alt-link a:hover { text-decoration: underline; }
+
+    .error-msg {
+      padding: 12px 16px;
+      background: rgba(239,68,68,0.1);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 12px;
+      font-size: 13px;
+      color: #FCA5A5;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .footer-note {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 11px;
+      color: rgba(255,255,255,0.15);
+    }
+
+    /* titlebar drag region — matches the 38px native overlay */
+    .titlebar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 38px;
+      -webkit-app-region: drag;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding-left: 90px;   /* macOS traffic-light room / Win logo room */
+      padding-right: 150px; /* native minimize/maximize/close overlay */
+      background: #0A0A0A;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .titlebar .tb-brand {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .titlebar .tb-logo {
+      width: 18px; height: 18px;
+      background: #fff;
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 12px rgba(99,102,241,0.45);
+    }
+    .titlebar .tb-logo img {
+      width: 12px; height: 12px; object-fit: contain; filter: invert(1);
+    }
+
+    /* ── Animations ─────────────────────────────────────── */
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(15px, -15px); }
+    }
+    @keyframes logoEntry {
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes panelSlide {
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Views toggle ───────────────────────────────────── */
+    .view { display: none; }
+    .view.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="titlebar">
+    <div class="tb-brand">
+      <div class="tb-logo"><img src="./assets/logo.png" alt="" /></div>
+      <span>Wersee</span>
+    </div>
+  </div>
+
+  <div class="app">
+    <!-- Left branding panel -->
+    <div class="brand-panel">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+
+      <div class="brand-content">
+        <div class="logo-container">
+          <img
+            src="./assets/logo.png"
+            alt="Wersee"
+          />
+        </div>
+        <h1 class="brand-title">WERSEE</h1>
+        <p class="brand-tagline">Premium Digital Ecosystem</p>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon fi-blue">⚡</div>
+            <span class="feature-text">Sell digital products, services & subscriptions</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon fi-purple">💳</div>
+            <span class="feature-text">Accept payments & send invoices instantly</span>
+          </div>
+          <div class="feature">
+            <div class="feature-icon fi-green">🚀</div>
+            <span class="feature-text">Build communities & grow your audience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right auth panel -->
+    <div class="auth-panel">
+      <!-- Welcome View -->
+      <div id="view-welcome" class="view active">
+        <div class="auth-header">
+          <h2 class="auth-title">Welcome</h2>
+          <p class="auth-subtitle">Sign in to your Wersee account to get started with the desktop app.</p>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" onclick="showView('login')">
+            Sign In
+          </button>
+          <button class="btn-secondary" onclick="showView('register')">
+            Create Account
+          </button>
+        </div>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">or</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <button class="btn-secondary" onclick="openInBrowser()">
+          Continue in Browser
+        </button>
+      </div>
+
+      <!-- Login View -->
+      <div id="view-login" class="view">
+        <div class="auth-header">
+          <h2 class="auth-title">Sign In</h2>
+          <p class="auth-subtitle">Enter your credentials to access your workspace.</p>
+        </div>
+
+        <div id="login-error" class="error-msg"></div>
+
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="login-email" class="form-input" placeholder="you@example.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="login-password" class="form-input" placeholder="Your password" required autocomplete="current-password" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="login-btn" class="btn-primary">Sign In</button>
+            <button type="button" class="btn-secondary" onclick="showView('welcome')">Back</button>
+          </div>
+        </form>
+
+        <p class="alt-link">
+          Don't have an account? <a onclick="showView('register')">Create one</a>
+        </p>
+      </div>
+
+      <!-- Register View -->
+      <div id="view-register" class="view">
+        <div class="auth-header">
+          <h2 class="auth-title">Create Account</h2>
+          <p class="auth-subtitle">Start managing your business for free.</p>
+        </div>
+
+        <div id="register-error" class="error-msg"></div>
+        <div id="register-success" class="error-msg" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.2);color:#6EE7B7;"></div>
+
+        <form id="register-form" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="reg-name" class="form-input" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" id="reg-email" class="form-input" placeholder="you@example.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="reg-password" class="form-input" placeholder="At least 8 characters" required minlength="8" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" id="register-btn" class="btn-primary">Create Account</button>
+            <button type="button" class="btn-secondary" onclick="showView('welcome')">Back</button>
+          </div>
+        </form>
+
+        <p class="alt-link">
+          Already have an account? <a onclick="showView('login')">Sign in</a>
+        </p>
+      </div>
+
+      <p class="footer-note">Wersee Desktop — Secure & Encrypted</p>
+    </div>
+  </div>
+
+  <script>
+    // ── Supabase REST API ────────────────────────────────────
+    const SUPABASE_URL = 'https://pkgwzusngqwnmdfpifnd.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBrZ3d6dXNuZ3F3bm1kZnBpZm5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI1NDY2NjIsImV4cCI6MjA4ODEyMjY2Mn0.HOYqIqXBHK7lTeOm73QAgkXvgy6uQ7dMfly-ouPpflI';
+
+    function showView(viewId) {
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      document.getElementById(`view-${viewId}`).classList.add('active');
+      // Clear errors
+      document.querySelectorAll('.error-msg').forEach(e => { e.classList.remove('show'); e.textContent = ''; });
+    }
+
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      el.textContent = msg;
+      el.classList.add('show');
+    }
+
+    function setLoading(btnId, loading) {
+      const btn = document.getElementById(btnId);
+      if (loading) {
+        btn.disabled = true;
+        btn._text = btn.textContent;
+        btn.innerHTML = '<span class="spinner"></span>';
+      } else {
+        btn.disabled = false;
+        btn.textContent = btn._text || 'Submit';
+      }
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      setLoading('login-btn', true);
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showError('login-error', data.error_description || data.msg || 'Login failed. Please check your credentials.');
+          setLoading('login-btn', false);
+          return;
+        }
+
+        // Success — transition to the main app
+        if (window.werseeDesktop) {
+          window.werseeDesktop.loginComplete();
+        } else {
+          window.location.href = 'https://wersee.com';
+        }
+      } catch (err) {
+        showError('login-error', 'Could not connect. Please check your internet connection.');
+        setLoading('login-btn', false);
+      }
+    }
+
+    async function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-password').value;
+
+      setLoading('register-btn', true);
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_KEY,
+          },
+          body: JSON.stringify({ email, password, data: { full_name: name } }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showError('register-error', data.error_description || data.msg || 'Registration failed.');
+          setLoading('register-btn', false);
+          return;
+        }
+
+        // Show success message
+        const successEl = document.getElementById('register-success');
+        successEl.textContent = 'Account created! Check your email to verify, then sign in.';
+        successEl.classList.add('show');
+        setLoading('register-btn', false);
+
+        setTimeout(() => showView('login'), 3000);
+      } catch (err) {
+        showError('register-error', 'Could not connect. Please check your internet connection.');
+        setLoading('register-btn', false);
+      }
+    }
+
+    function openInBrowser() {
+      if (window.werseeDesktop) {
+        // The preload script doesn't have shell.openExternal, so navigate in-app
+        window.werseeDesktop.navigate('/auth');
+      } else {
+        window.open('https://wersee.com/auth', '_blank');
+      }
+    }
+
+    // Auto-focus first input on view change
+    document.addEventListener('click', () => {
+      setTimeout(() => {
+        const active = document.querySelector('.view.active');
+        const input = active?.querySelector('input');
+        if (input) input.focus();
+      }, 100);
+    });
+  </script>
+</body>
+</html>

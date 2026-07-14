@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --font-outfit: "Outfit", sans-serif;
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --text-lg: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-xl: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-2xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-3xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --text-4xl: clamp(1.875rem, 1.65rem + 1.1vw, 2.25rem);
+  --text-5xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);
+}
+
+body {
+  @apply bg-black text-[#1D1D1F] antialiased transition-colors duration-200;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile if needed, or use contain */
+}
+
+/* Smooth scrolling for the whole app */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 640px) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.005 260);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.4 0.005 260);
+}
+
+/* Hide scrollbar for horizontal scrolling but keep functionality */
+.no-scrollbar::-webkit-scrollbar, .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar, .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe area utilities for mobile */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+/* Markdown Body Styles for Chat */
+.markdown-body {
+  @apply text-base leading-relaxed;
+}
+
+.markdown-body p {
+  @apply mb-6 last:mb-0;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  @apply font-bold mt-8 mb-4 text-[#1D1D1F] dark:text-white;
+}
+
+.markdown-body h1 { @apply text-3xl; }
+.markdown-body h2 { @apply text-2xl; }
+.markdown-body h3 { @apply text-xl; }
+
+.markdown-body ul, .markdown-body ol {
+  @apply pl-6 mb-6 space-y-3;
+}
+
+.markdown-body ul { @apply list-disc; }
+.markdown-body ol { @apply list-decimal; }
+
+.markdown-body li {
+  @apply pl-1;
+}
+
+.markdown-body code {
+  @apply bg-black/5 dark:bg-white/10 px-2 py-1 rounded font-mono text-sm font-medium;
+}
+
+.markdown-body pre {
+  @apply bg-black/5 dark:bg-white/5 p-6 rounded-2xl overflow-x-auto my-6 font-mono text-sm border border-black/5 dark:border-white/5;
+}
+
+.markdown-body blockquote {
+  @apply bg-blue-500/5 dark:bg-blue-400/5 rounded-xl px-6 py-4 italic my-6 text-gray-600 dark:text-gray-400;
+}
+
+.markdown-body strong {
+  @apply font-bold text-[#1D1D1F] dark:text-white;
+}
+
+.markdown-body em {
+  @apply italic;
+}
+
+.markdown-body hr {
+  @apply my-8 border-t border-black/5 dark:border-white/10;
+}
+
+.markdown-body a {
+  @apply text-blue-500 hover:underline font-medium;
+}
+
+/* PDF Generation Styles */
+.pdf-mode {
+  background-color: white !important;
+  color: black !important;
+  padding: 40px !important;
+  width: 1000px !important;
+  margin: 0 auto !important;
+}
+
+.pdf-mode * {
+  color: #1a1a1a !important;
+  border-color: #e5e7eb !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.pdf-mode .bg-\[\#111111\],
+.pdf-mode .bg-white\/5,
+.pdf-mode .bg-black\/20 {
+  background-color: transparent !important;
+  border: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.pdf-mode .border {
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+.pdf-mode .rounded-2xl,
+.pdf-mode .rounded-xl {
+  border-radius: 0 !important;
+}
+
+.pdf-mode .text-gray-400,
+.pdf-mode .text-gray-500,
+.pdf-mode .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.pdf-mode .text-emerald-400,
+.pdf-mode .text-emerald-500 {
+  color: #059669 !important;
+}
+
+.pdf-mode .bg-emerald-500 {
+  background-color: #059669 !important;
+  color: white !important;
+}
+
+.pdf-mode .border-white\/10,
+.pdf-mode .border-white\/5 {
+  border-color: #e5e7eb !important;
+}
+
+.pdf-mode button,
+.pdf-mode .sticky,
+.pdf-mode form,
+.pdf-mode .lg\:col-span-1, /* Hide sidebar in PDF if it's just comments */
+.pdf-mode #feedback-section {
+  display: none !important;
+}
+
+.pdf-mode .lg\:col-span-2 {
+  grid-column: span 3 / span 3 !important;
+}
+
+.pdf-mode .deliverable-row {
+  border-bottom: 1px solid #e5e7eb !important;
+  padding: 12px 0 !important;
+}
+
+.pdf-mode .total-section {
+  border-top: 2px solid #1a1a1a !important;
+  margin-top: 24px !important;
+  padding-top: 12px !important;
+}
+
+@layer utilities {
+  .perspective-1000 { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; }
+  .rotate-y-180 { transform: rotateY(180deg); }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

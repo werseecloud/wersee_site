@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.*
+!.env.example
+supabase/.env
+supabase/.env.*
+supabase/.temp/
+*secret*.json
+*secrets*.json
+.DS_Store
+*.log
+npm-debug.log*
+dist/
+dist-electron/
+build/
+*.exe
+*.apk

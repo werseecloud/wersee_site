@@ -1,0 +1,116 @@
+{
+  "appId": "com.wersee.desktop",
+  "productName": "Wersee",
+  "copyright": "© 2026 Wersee. All rights reserved.",
+  "asar": true,
+  "compression": "maximum",
+
+  "directories": {
+    "output": "dist-electron",
+    "buildResources": "electron/assets"
+  },
+
+  "files": [
+    "electron/**/*",
+    "!electron/assets/icon.icns",
+    "!electron/assets/icon.ico"
+  ],
+
+  "extraMetadata": {
+    "main": "electron/main.js"
+  },
+
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64"]
+      }
+    ],
+    "icon": "electron/assets/icon.ico",
+    "requestedExecutionLevel": "asInvoker",
+    "publisherName": "Wersee",
+    "verifyUpdateCodeSignature": false
+  },
+
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "allowElevation": true,
+    "installerIcon": "electron/assets/icon.ico",
+    "uninstallerIcon": "electron/assets/icon.ico",
+    "installerHeaderIcon": "electron/assets/icon.ico",
+    "installerSidebar": "electron/assets/installerSidebar.bmp",
+    "uninstallerSidebar": "electron/assets/installerSidebar.bmp",
+    "installerHeader": "electron/assets/installerHeader.bmp",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Wersee",
+    "runAfterFinish": true,
+    "menuCategory": "Wersee",
+    "deleteAppDataOnUninstall": false,
+    "license": "electron/assets/LICENSE.txt",
+    "include": "electron/assets/installer.nsh",
+    "artifactName": "Wersee-Installer-${version}.${ext}",
+    "uninstallDisplayName": "Wersee — Where creators do business"
+  },
+
+  "portable": {
+    "artifactName": "Wersee-Portable-${version}.exe"
+  },
+
+  "mac": {
+    "target": [
+      { "target": "dmg",  "arch": ["x64", "arm64"] },
+      { "target": "zip",  "arch": ["x64", "arm64"] }
+    ],
+    "icon": "electron/assets/icon.icns",
+    "category": "public.app-category.business",
+    "darkModeSupport": true,
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "entitlements": "electron/assets/entitlements.mac.plist",
+    "entitlementsInherit": "electron/assets/entitlements.mac.plist"
+  },
+
+  "dmg": {
+    "title": "Wersee ${version}",
+    "backgroundColor": "#0A0A0A",
+    "iconSize": 128,
+    "contents": [
+      { "x": 130, "y": 220 },
+      { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+    ]
+  },
+
+  "linux": {
+    "target": ["AppImage", "deb", "rpm"],
+    "icon": "electron/assets/icons",
+    "category": "Office",
+    "description": "Wersee — Premium Digital Marketplace",
+    "maintainer": "Wersee <support@wersee.com>",
+    "desktop": {
+      "Name": "Wersee",
+      "Comment": "Where creators do business",
+      "Categories": "Network;Office;",
+      "Keywords": "marketplace;creator;digital;business;"
+    }
+  },
+
+  "publish": {
+    "provider": "github",
+    "owner": "werseecloud",
+    "repo": "wersee_site",
+    "releaseType": "release"
+  },
+
+  "protocols": [
+    {
+      "name": "Wersee",
+      "schemes": ["wersee"]
+    }
+  ],
+
+  "artifactName": "${productName}-Setup-${version}-${arch}.${ext}"
+}
