@@ -6,6 +6,10 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/r/:path*",
+      "destination": "https://pkgwzusngqwnmdfpifnd.supabase.co/functions/v1/creator-referral/:path*"
+    },
+    {
       "source": "/((?!.*\\..*).*)",
       "destination": "/index.html"
     }
