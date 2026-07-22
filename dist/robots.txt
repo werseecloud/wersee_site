@@ -51,4 +51,4 @@ Allow: /
 Crawl-delay: 2
 
 # ── Sitemap ───────────────────────────────────────────────────────
-Sitemap: https://wersee.com/sitemap.xml
+Sitemap: https://www.wersee.com/sitemap.xml
