@@ -33,6 +33,33 @@ self.addEventListener('message', (event) => {
   }
 });
 
+self.addEventListener('push', (event) => {
+  if (!event.data) return;
+
+  let payload;
+  try {
+    payload = event.data.json();
+  } catch {
+    payload = { body: event.data.text() };
+  }
+
+  // Firebase's own listener handles FCM envelopes.
+  if (payload?.from || payload?.['google.c.a.e']) return;
+
+  const title = payload.title || payload.notification?.title || 'Wersee Chats';
+  const options = {
+    body: payload.body || payload.message || payload.notification?.body || 'You received a new chat message.',
+    icon: payload.icon || '/favicon.ico',
+    badge: payload.badge || '/favicon.ico',
+    tag: payload.tag || payload.notification_id || 'wersee-chat',
+    data: {
+      url: payload.url || payload.data?.url || '/workspace/chats'
+    }
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   const urlToOpen = new URL(event.notification.data.url, self.location.origin).href;
