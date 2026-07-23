@@ -1,2 +1,0 @@
-import{j as r}from"./vendor-react-2DI8nfEr.js";import{CreatorRoute as t}from"./CreatorMode-B8sZKkQd.js";import"./index-C3vKz3sG.js";import"./index-Fze3cTRs.js";import"./vendor-ui-bFV2Becj.js";import"./vendor-supabase-_AuQRo9U.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-0xY1gjx9.js";function u(){return r.jsx(t,{screen:"earnings"})}export{u as default};
-//# sourceMappingURL=CreatorEarnings-D3fQA6hj.js.map
