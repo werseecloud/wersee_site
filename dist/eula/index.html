@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Prevent cross-fetch or other libraries from throwing when trying to set window.fetch
+      if (typeof window !== 'undefined') {
+        const originalFetch = window.fetch;
+        try {
+          // Use a more robust way to handle fetch assignment
+          let currentFetch = originalFetch;
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: () => currentFetch,
+            set: (v) => {
+              // Allow setting it but we'll still use the original one for our needs if we want
+              // or just let it be updated. The error "only a getter" happens if 'set' is missing.
+              currentFetch = v;
+            }
+          });
+        } catch (e) {
+          console.warn('Failed to define fetch property:', e);
+        }
+      }
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+>
+    <meta name="keywords" content="digital products, services, courses, templates, creator marketplace, communities, wersee" />
+    <meta name="author" content="Wersee" />
+>
+    <link rel="preconnect" href="https://pkgwzusngqwnmdfpifnd.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://pkgwzusngqwnmdfpifnd.supabase.co" />
+    
+    <!-- Open Graph / Facebook -->
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+
+    <!-- Twitter -->
+>
+>
+>
+>
+>
+>
+>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="image_src" href="https://www.wersee.com/brand/wersee-social-card.jpg" />
+    
+    <meta name="application-name" content="Wersee" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Wersee" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#070A2E" />
+    <link rel="manifest" href="/manifest.json" />
+<!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Wersee",
+        "url": "https://www.wersee.com/",
+        "logo": "https://www.wersee.com/brand/wersee-icon-512.png",
+        "image": "https://www.wersee.com/brand/wersee-social-card.jpg",
+        "sameAs": [
+          "https://twitter.com/wersee",
+          "https://instagram.com/wersee",
+          "https://linkedin.com/company/wersee"
+        ],
+        "description": "Wersee is the all-in-one platform for creators and businesses to sell digital products, services, and subscriptions."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Wersee",
+        "url": "https://www.wersee.com/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.wersee.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="module" crossorigin src="/assets/app-nasSu5Si.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-KDWfX7Ci.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-supabase-_AuQRo9U.js">
+    <link rel="modulepreload" crossorigin href="/assets/authSessionCleanup-DeKeMjUx.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-runtime-ckwbz45p.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-ui-7oSf91Z0.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-utils-0xY1gjx9.js">
+    <link rel="stylesheet" crossorigin href="/assets/app-CNz81mG_.css">
+  
+  <title data-static-seo>End User License Agreement | Wersee</title>
+  <meta data-static-seo name="description" content="Read the End User License Agreement governing the installation and use of Wersee Desktop and related Wersee software.">
+  <link data-static-seo rel="canonical" href="https://www.wersee.com/eula">
+  <meta data-static-seo property="og:type" content="website">
+  <meta data-static-seo property="og:title" content="End User License Agreement | Wersee">
+  <meta data-static-seo property="og:description" content="The license terms governing the use of Wersee Desktop and related software.">
+  <meta data-static-seo property="og:url" content="https://www.wersee.com/eula">
+  <meta data-static-seo property="og:image" content="https://www.wersee.com/brand/wersee-social-card.jpg">
+  <meta data-static-seo property="og:site_name" content="Wersee">
+  <meta data-static-seo name="twitter:card" content="summary_large_image">
+  <meta data-static-seo name="twitter:title" content="End User License Agreement | Wersee">
+  <meta data-static-seo name="twitter:description" content="The license terms governing the use of Wersee Desktop and related software.">
+<style data-eula-static>
+  .eula-static-shell{min-height:100vh;background:#f5f5f7;color:#334155;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}
+  .eula-static-shell a{color:#1d4ed8;text-underline-offset:3px}
+  .eula-static-shell a:focus-visible,.eula-static-shell summary:focus-visible{outline:2px solid #2563eb;outline-offset:3px}
+  .eula-static-skip{position:fixed;left:1rem;top:0;z-index:10;transform:translateY(-120%);background:#fff;padding:.75rem 1rem;border-radius:.5rem;font-weight:700}
+  .eula-static-skip:focus{transform:translateY(.75rem)}
+  .eula-static-header{background:#050505;color:#fff;padding:1rem 1.25rem}
+  .eula-static-header nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .eula-static-header a{color:#fff;text-decoration:none}.eula-static-header nav div{display:flex;gap:1.25rem}
+  .eula-static-brand{font-size:1.25rem;font-weight:900;letter-spacing:.08em}
+  .eula-static-shell main{max-width:860px;margin:auto;padding:2.25rem 1rem 5rem}
+  .eula-static-breadcrumb{font-size:.875rem;margin-bottom:2rem}
+  .eula-static-shell article{background:#fff;border:1px solid #e2e8f0;border-radius:1.5rem;padding:clamp(1.25rem,4vw,3rem)}
+  .eula-static-title{padding-bottom:2rem;border-bottom:1px solid #e2e8f0}
+  .eula-static-title>p{color:#1d4ed8;font-size:.875rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .eula-static-title h1{color:#020617;font-size:clamp(2.25rem,7vw,3.25rem);line-height:1.08;margin:.75rem 0 1.25rem}
+  .eula-static-title div{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.875rem;font-weight:600}
+  .eula-static-toc{margin:2rem 0;border:1px solid #e2e8f0;border-radius:1rem;padding:1rem 1.25rem}
+  .eula-static-toc summary{cursor:pointer;color:#020617;font-weight:800}.eula-static-toc ol{padding-left:1.25rem}.eula-static-toc li{margin:.45rem 0}
+  .eula-static-intro{font-size:1.125rem;margin:2rem 0}
+  .eula-section{border-top:1px solid #e2e8f0;padding:2rem 0;scroll-margin-top:1rem}.eula-section h2{color:#020617;font-size:1.5rem;line-height:1.25}
+  .eula-prose p+p{margin-top:1rem}.eula-prose ul{padding-left:1.4rem}.eula-prose li+li{margin-top:.45rem}
+  .eula-section address{font-style:normal;margin-top:1.25rem}
+  .eula-static-shell footer{background:#050505;padding:2rem 1rem}.eula-static-shell footer nav{display:flex;justify-content:center;gap:1.5rem}.eula-static-shell footer a{color:#fff}
+  @media(max-width:480px){.eula-static-header nav div{gap:.75rem;font-size:.875rem}.eula-static-shell article{border-radius:1rem}}
+  @media(prefers-reduced-motion:reduce){.eula-static-shell *{scroll-behavior:auto!important}}
+  @media print{@page{margin:18mm 16mm}.eula-static-header,.eula-static-breadcrumb,.eula-static-toc,.eula-static-shell footer,.eula-static-skip{display:none!important}.eula-static-shell,.eula-static-shell main,.eula-static-shell article{background:#fff!important;max-width:none;padding:0;border:0;border-radius:0}.eula-section{break-inside:avoid-page}.eula-prose a[href^="/"]::after{content:" (https://www.wersee.com" attr(href) ")";font-weight:400;overflow-wrap:anywhere}}
+</style></head>
+  <body>
+    <div id="root">
+  <div class="eula-static-shell">
+    <a class="eula-static-skip" href="#eula-content">Skip to legal content</a>
+    <header class="eula-static-header">
+      <nav aria-label="Primary navigation">
+        <a class="eula-static-brand" href="/">WERSEE</a>
+        <div><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/support">Support</a></div>
+      </nav>
+    </header>
+    <main id="eula-content" tabindex="-1">
+      <nav class="eula-static-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <span aria-current="page">End User License Agreement</span></nav>
+      <article>
+        <header class="eula-static-title">
+          <p>Wersee Desktop and related software</p>
+          <h1>End User License Agreement</h1>
+          <div><span>Version 1.0</span><span>Last updated: July 23, 2026</span></div>
+        </header>
+        <details class="eula-static-toc">
+          <summary>Table of contents</summary>
+          <nav aria-label="EULA table of contents"><ol><li><a href="#introduction">1. Introduction and acceptance</a></li><li><a href="#related-terms">2. Relationship with other Wersee terms</a></li><li><a href="#eligibility">3. Eligibility</a></li><li><a href="#license-grant">4. Licence grant</a></li><li><a href="#license-restrictions">5. Licence restrictions</a></li><li><a href="#accounts-security">6. Accounts and security</a></li><li><a href="#subscriptions-payments">7. Subscriptions, payments and trials</a></li><li><a href="#updates">8. Updates and changes to the Software</a></li><li><a href="#user-content">9. User content and customer data</a></li><li><a href="#third-party">10. Third-party services and open-source software</a></li><li><a href="#intellectual-property">11. Intellectual property</a></li><li><a href="#feedback">12. Feedback</a></li><li><a href="#beta-features">13. Beta and preview features</a></li><li><a href="#availability-support">14. Availability, support and maintenance</a></li><li><a href="#privacy-telemetry">15. Privacy and telemetry</a></li><li><a href="#termination">16. Suspension and termination</a></li><li><a href="#warranties">17. Disclaimer of warranties</a></li><li><a href="#liability">18. Limitation of liability</a></li><li><a href="#indemnification">19. Indemnification</a></li><li><a href="#export-controls">20. Export controls and sanctions</a></li><li><a href="#governing-law">21. Governing law and disputes</a></li><li><a href="#changes">22. Changes to this EULA</a></li><li><a href="#contact">23. Contact information</a></li><li><a href="#store-terms">24. Store-specific terms</a></li></ol></nav>
+        </details>
+        <p class="eula-static-intro">Please read these licence terms carefully before installing or using Wersee Desktop or related Wersee software.</p>
+        <section id="introduction" class="eula-section">
+    <h2>1. Introduction and acceptance</h2>
+    <div class="eula-prose"><p>This End User License Agreement (“EULA”) is a legal agreement between you and the legal entity that provides the Wersee software and related services to you (“Wersee”, “we”, “us” or “our”). It governs Wersee Desktop and any other installable Wersee software, including associated components, documentation, updates and upgrades (together, the “Software”).</p>
+      <p>By downloading, installing, opening or using the Software, you agree to this EULA. If you do not agree, do not download, install or use the Software. If you use the Software for a company or other organisation, you represent that you have authority to bind that organisation to this EULA; in that case, “you” includes that organisation.</p></div>
+    
+  </section><section id="related-terms" class="eula-section">
+    <h2>2. Relationship with other Wersee terms</h2>
+    <div class="eula-prose"><p>This EULA should be read together with the <a href="/terms">Wersee Terms of Service</a> and the <a href="/privacy">Wersee Privacy Policy</a>. The Terms of Service govern your Wersee account and the online services, while this EULA specifically governs the licence to install and use the Software.</p>
+      <p>If these documents conflict, this EULA takes priority only for matters concerning the Software licence. Mandatory law always prevails where it cannot lawfully be varied by agreement.</p></div>
+    
+  </section><section id="eligibility" class="eula-section">
+    <h2>3. Eligibility</h2>
+    <div class="eula-prose"><p>You may use the Software only if you have the legal capacity to enter into this EULA. If you do not have that capacity, a parent, guardian or other legally authorised representative must enter into the agreement where permitted by the applicable Wersee terms and law.</p></div>
+    
+  </section><section id="license-grant" class="eula-section">
+    <h2>4. Licence grant</h2>
+    <div class="eula-prose"><p>While you comply with this EULA and the applicable Wersee terms, Wersee grants you a limited, non-exclusive, non-transferable, non-sublicensable and revocable licence to install and use the object-code version of the Software that Wersee officially makes available to you.</p>
+      <p>The licence is for normal business or personal use and is limited to the users, devices and workspaces included with your account or subscription. It does not transfer ownership of the Software, source code or any intellectual-property right to you.</p></div>
+    
+  </section><section id="license-restrictions" class="eula-section">
+    <h2>5. Licence restrictions</h2>
+    <div class="eula-prose"><p>Except where this EULA or mandatory law expressly permits it, you must not:</p>
+      <ul>
+        <li>copy, publish or distribute the Software beyond what is expressly allowed;</li>
+        <li>sell, rent, lease, sublicense or commercially redistribute the Software;</li>
+        <li>reverse engineer, decompile or disassemble the Software;</li>
+        <li>bypass or interfere with security, authentication, subscription or licence controls;</li>
+        <li>remove copyright, trade mark or other proprietary notices;</li>
+        <li>use the Software for malware, fraud, unauthorised access or any other unlawful activity;</li>
+        <li>disrupt, damage or overload Wersee systems or the systems of others; or</li>
+        <li>use the Software to copy a competing product in a way that infringes Wersee’s rights.</li>
+      </ul>
+      <p>Nothing in this section restricts rights you retain under mandatory law, including any non-waivable right to achieve interoperability. Where the law requires you to request information before exercising such a right, contact us first.</p></div>
+    
+  </section><section id="accounts-security" class="eula-section">
+    <h2>6. Accounts and security</h2>
+    <div class="eula-prose"><p>Some Software features require a Wersee account and an internet connection. You are responsible for providing accurate account information, keeping credentials confidential, securing your devices, and activity carried out through your account. Notify Wersee promptly if you suspect unauthorised access or misuse. Additional account rules are in the <a href="/terms">Terms of Service</a>.</p></div>
+    
+  </section><section id="subscriptions-payments" class="eula-section">
+    <h2>7. Subscriptions, payments and trials</h2>
+    <div class="eula-prose"><p>Paid features, subscriptions, trials, renewals, cancellations and refunds are governed by the applicable <a href="/terms">Terms of Service</a>, the plan you select and, where relevant, the terms of the app store or payment provider used for the transaction. This EULA does not set or replace pricing terms.</p></div>
+    
+  </section><section id="updates" class="eula-section">
+    <h2>8. Updates and changes to the Software</h2>
+    <div class="eula-prose"><p>Wersee may provide updates, patches, security improvements and new versions. Some updates may be necessary for security, compatibility or continued use. The Software may update automatically where your settings and platform rules allow it.</p>
+      <p>Wersee may change the Software over time, but will do so subject to applicable consumer law and existing contractual obligations. This EULA does not give Wersee an unlimited right to remove paid functionality.</p></div>
+    
+  </section><section id="user-content" class="eula-section">
+    <h2>9. User content and customer data</h2>
+    <div class="eula-prose"><p>You retain your rights in content and data you provide, to the extent you lawfully hold those rights. You grant Wersee only the limited rights reasonably needed to host, transmit, process, secure, support and otherwise provide the Software and related services.</p>
+      <p>How Wersee processes personal data is described in the <a href="/privacy">Privacy Policy</a> and, where applicable, a Data Processing Agreement. Unless a separate written agreement expressly says otherwise, the Software does not include a promise of unlimited backups or guaranteed data recovery. You remain responsible for maintaining appropriate copies of important data.</p></div>
+    
+  </section><section id="third-party" class="eula-section">
+    <h2>10. Third-party services and open-source software</h2>
+    <div class="eula-prose"><p>The Software may connect to third-party services and may include open-source components. Third-party terms, privacy notices and open-source licences continue to apply to those services and components. To the extent permitted by law, Wersee is not responsible for third-party services outside its control, except where a separate agreement or applicable law requires otherwise.</p></div>
+    
+  </section><section id="intellectual-property" class="eula-section">
+    <h2>11. Intellectual property</h2>
+    <div class="eula-prose"><p>Wersee and its licensors retain all intellectual-property rights in the Software, its design, trade marks, documentation and underlying technology. This EULA grants only the limited right of use stated in section 4. It does not give you an implied right to use Wersee’s name, logos or trade marks.</p></div>
+    
+  </section><section id="feedback" class="eula-section">
+    <h2>12. Feedback</h2>
+    <div class="eula-prose"><p>You may voluntarily provide ideas, suggestions or other feedback. You give Wersee a worldwide, perpetual, royalty-free right to use that feedback to operate and improve its products and services. This does not transfer ownership of your pre-existing content, and Wersee will not publish confidential user data merely because it appears in feedback.</p></div>
+    
+  </section><section id="beta-features" class="eula-section">
+    <h2>13. Beta and preview features</h2>
+    <div class="eula-prose"><p>Features identified as beta, experimental, preview or similar may be incomplete, contain errors, change without notice and be unsuitable for production use. Use them with appropriate caution and backups. Nothing in this section excludes a guarantee, remedy or other right that cannot lawfully be excluded.</p></div>
+    
+  </section><section id="availability-support" class="eula-section">
+    <h2>14. Availability, support and maintenance</h2>
+    <div class="eula-prose"><p>Wersee works to keep the Software available and secure, but does not promise uninterrupted or error-free operation. Maintenance, incidents and matters outside Wersee’s reasonable control may affect availability. Information about available assistance is on the <a href="/support">Wersee Support page</a>. No response time or service level applies unless it is expressly included in a separate written agreement.</p></div>
+    
+  </section><section id="privacy-telemetry" class="eula-section">
+    <h2>15. Privacy and telemetry</h2>
+    <div class="eula-prose"><p>The Software may process technical, diagnostic, security and usage information needed to operate, protect, troubleshoot and improve the Software, as described in the <a href="/privacy">Privacy Policy</a> and subject to applicable choices and consent requirements. This EULA does not make additional promises about analytics, encryption or data location beyond the Privacy Policy and the Software’s actual implementation.</p></div>
+    
+  </section><section id="termination" class="eula-section">
+    <h2>16. Suspension and termination</h2>
+    <div class="eula-prose"><p>You may end this licence by stopping use of the Software and uninstalling all copies under your control. Wersee may suspend or terminate the licence for a material breach, misuse, a security risk, a legal obligation, or termination of the related account or service agreement.</p>
+      <p>Where appropriate, Wersee will provide notice and a reasonable opportunity to remedy a breach. No cure period is required where immediate action is reasonably necessary to address fraud, an urgent security risk or a legal requirement. When the licence ends, you must stop using and remove the Software. Provisions that by their nature should survive—including ownership, liability, indemnity and dispute provisions—remain in effect.</p></div>
+    
+  </section><section id="warranties" class="eula-section">
+    <h2>17. Disclaimer of warranties</h2>
+    <div class="eula-prose"><p>The Software is provided on an “as available” basis and, to the extent permitted by law, “as is”. Wersee does not warrant that every feature will always be available, uninterrupted, secure or error free.</p>
+      <p>Nothing in this EULA excludes statutory guarantees, consumer remedies or other rights that cannot lawfully be excluded or limited, including rights available to consumers in the European Economic Area.</p></div>
+    
+  </section><section id="liability" class="eula-section">
+    <h2>18. Limitation of liability</h2>
+    <div class="eula-prose"><p><strong>Business users.</strong> To the maximum extent permitted by law, Wersee is not liable for indirect, incidental, special, consequential or punitive loss, including lost profits, data or goodwill. Wersee’s aggregate liability for claims relating to the Software is limited to the greater of EUR 100 or the total fees paid to Wersee in the 12 months preceding the claim, consistent with the published Terms of Service.</p>
+      <p><strong>Consumers.</strong> Any limitation applies only to the extent permitted by the mandatory law that protects you. Nothing in this EULA limits or excludes liability where doing so is unlawful, including liability for intentional misconduct, liability for gross negligence where it cannot be limited, or death or personal injury caused by negligence where exclusion is prohibited.</p></div>
+    
+  </section><section id="indemnification" class="eula-section">
+    <h2>19. Indemnification</h2>
+    <div class="eula-prose"><p>This section applies only if you use the Software for business purposes. You will indemnify Wersee and its affiliates against third-party claims, losses and reasonable costs to the extent caused by your unlawful use of the Software, your infringement of third-party rights, content you provide, or your material breach of this EULA. It does not apply to consumers acting outside a trade, business or profession, and does not cover loss caused by Wersee.</p></div>
+    
+  </section><section id="export-controls" class="eula-section">
+    <h2>20. Export controls and sanctions</h2>
+    <div class="eula-prose"><p>You must not use, export, re-export or otherwise make the Software available in violation of applicable export-control, sanctions or trade laws. You are responsible for complying with laws that apply to your use and location.</p></div>
+    
+  </section><section id="governing-law" class="eula-section">
+    <h2>21. Governing law and disputes</h2>
+    <div class="eula-prose"><p>This EULA is governed by the laws of the Netherlands. Subject to mandatory law, disputes are submitted to the competent courts in the Netherlands. If you are a consumer, this does not prevent you from bringing proceedings in any court that has jurisdiction under the mandatory law of your place of residence.</p>
+      <p>This EULA does not impose mandatory arbitration or waive collective rights.</p></div>
+    
+  </section><section id="changes" class="eula-section">
+    <h2>22. Changes to this EULA</h2>
+    <div class="eula-prose"><p>Wersee may update this EULA to reflect changes in the Software, law, security needs or business operations. Material changes will be announced in a reasonable manner before they take effect where required. The “Last updated” date changes only when the legal text changes. Continued use after an update takes effect constitutes acceptance only to the extent permitted by law.</p></div>
+    
+  </section><section id="contact" class="eula-section">
+    <h2>23. Contact information</h2>
+    <div class="eula-prose"><p>Questions about this EULA may be sent to <a href="mailto:legal@wersee.com">legal@wersee.com</a>. You can also use the <a href="/support">Wersee Support page</a>.</p></div>
+    <address><div>Legal email: legal@wersee.com</div></address>
+  </section><section id="store-terms" class="eula-section">
+    <h2>24. Store-specific terms</h2>
+    <div class="eula-prose"><p>If you obtained the Software through Microsoft Store, Apple App Store, Mac App Store or another distribution platform, that platform’s additional terms may apply. The distribution platform is not a party to this EULA unless its own terms expressly provide otherwise.</p></div>
+    
+  </section>
+      </article>
+    </main>
+    <footer><nav aria-label="Legal links"><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/support">Support</a></nav></footer>
+  </div>
+</div>
+<script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('SW registered: ', registration);
+          }).catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
+
