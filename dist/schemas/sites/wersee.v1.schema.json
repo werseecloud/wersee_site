@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wersee.com/schemas/sites/wersee.v1.schema.json",
+  "title": "Wersee Sites configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "version": { "const": 1 },
+    "seo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "index": { "type": "boolean", "default": true },
+        "title": { "type": "string", "minLength": 1, "maxLength": 70 },
+        "description": { "type": "string", "minLength": 1, "maxLength": 180 },
+        "language": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$", "default": "en" },
+        "sitemap": { "type": "boolean", "default": true },
+        "structuredData": { "type": "boolean", "default": true }
+      }
+    },
+    "ai": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "improveText": { "type": "boolean", "default": false },
+        "locale": { "type": "string", "pattern": "^[a-z]{2}(-[A-Z]{2})?$", "default": "en" },
+        "tone": { "enum": ["clear", "professional", "friendly", "confident", "concise"], "default": "clear" },
+        "instructions": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "analytics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean", "default": true },
+        "respectDoNotTrack": { "type": "boolean", "default": true },
+        "webVitals": { "type": "boolean", "default": true },
+        "scrollDepth": { "type": "boolean", "default": true },
+        "formSubmissions": { "type": "boolean", "default": true },
+        "errorSignals": { "type": "boolean", "default": true },
+        "outboundLinks": { "type": "boolean", "default": true },
+        "downloads": { "type": "boolean", "default": true },
+        "goals": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "selector"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]*$", "maxLength": 64 },
+              "selector": { "type": "string", "minLength": 1, "maxLength": 180 },
+              "event": { "enum": ["click", "submit"], "default": "click" },
+              "value": { "type": "number", "minimum": 0, "maximum": 1000000 }
+            }
+          }
+        }
+      }
+    }
+  }
+}
