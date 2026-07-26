@@ -4,7 +4,20 @@
   "installCommand": "",
   "buildCommand": null,
   "outputDirectory": "dist",
+  "functions": {
+    "api/sites.js": {
+      "maxDuration": 300
+    }
+  },
   "rewrites": [
+    {
+      "source": "/api/site-events",
+      "destination": "/api/sites?__sites_path=__events"
+    },
+    {
+      "source": "/api/sites/:path*",
+      "destination": "/api/sites?__sites_path=:path*"
+    },
     {
       "source": "/r/:path*",
       "destination": "https://pkgwzusngqwnmdfpifnd.supabase.co/functions/v1/creator-referral/:path*"
@@ -12,6 +25,12 @@
     {
       "source": "/((?!.*\\..*).*)",
       "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/sites/maintenance/cleanup",
+      "schedule": "17 3 * * *"
     }
   ]
 }
