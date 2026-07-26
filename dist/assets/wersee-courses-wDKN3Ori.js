@@ -807,3 +807,4 @@ Whether it's an acquisition, an IPO, or passing it on, you need a plan.
 
 Your journey on Wersee is just the beginning.
             `,quiz:[{question:"What is a 'Strategic Acquisition'?",options:["Buying a competitor","A larger company buying your business","Hiring a CEO","None"],correctAnswer:1}]}]}]}],g=(i,s,t)=>{const o=d.find(n=>n.id===i);if(!o)return null;const e=o.content[s];return e&&e.phases[t]?e.phases[t]:null};export{d as W,g};
+//# sourceMappingURL=wersee-courses-wDKN3Ori.js.map
