@@ -14,3 +14,4 @@ import{g as f}from"./geminiClient-CVgo37rZ.js";const d=()=>f(),u=async e=>{const
         
         Message: "${e}"
       `,config:{responseMimeType:"application/json"}}),n=JSON.parse(r.text||'{"safe": true}');return{safe:n.safe??!0,cleanedContent:n.cleanedContent??e,reason:n.reason}}catch(r){console.error("AI Link Detection Error:",r);const n=[/stripe\.com/,/paypal\.me/,/paypal\.com/,/buymeacoffee\.com/];let s=e,i=!1;for(const t of o)!t.includes("wersee.com")&&n.some(c=>c.test(t))&&(s=s.replace(t,"[FORBIDDEN LINK REMOVED]"),i=!0);return{safe:!i,cleanedContent:s}}};export{u as c};
+//# sourceMappingURL=chatAiService-CPlcXlB7.js.map
