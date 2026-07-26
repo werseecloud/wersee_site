@@ -1,0 +1,574 @@
+@import "tailwindcss";
+
+:root {
+  --wersee-interface-scale: 1;
+}
+
+/* Keep secondary copy readable on the dark public landing page. */
+.home-page .text-gray-500,
+.home-page .text-gray-600 {
+  color: rgb(156 163 175);
+}
+
+.home-page .placeholder-gray-500::placeholder,
+.home-page .placeholder\:text-gray-500::placeholder {
+  color: rgb(156 163 175);
+  opacity: 1;
+}
+
+/* Workspace theme bridge.
+   The workspace predates the app-wide theme context and many screens still use
+   shared dark surface utilities. Keeping the overrides scoped to the workspace
+   lets every existing view participate in light mode without changing public
+   storefront styling. */
+.workspace-shell[data-workspace-theme="light"] {
+  color-scheme: light;
+  color: #172033 !important;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(99, 102, 241, 0.08), transparent 28rem),
+    linear-gradient(180deg, #f8faff 0%, #f3f6fb 100%) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class*="bg-[#0A0A0A]"],
+.workspace-shell[data-workspace-theme="light"] [class*="bg-[#0a0a0a]"] {
+  background-color: rgba(248, 250, 255, 0.94) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class*="bg-[#141414]"],
+.workspace-shell[data-workspace-theme="light"] [class*="bg-[#1A1A1A]"],
+.workspace-shell[data-workspace-theme="light"] [class*="bg-[#1a1a1a]"],
+.workspace-shell[data-workspace-theme="light"] [class*="bg-[#111]"] {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 0 16px 45px rgba(34, 48, 76, 0.055);
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="bg-black/50"] {
+  background-color: rgba(241, 245, 249, 0.88) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/5"],
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/[0.02]"],
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/[0.03]"],
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/[0.035]"],
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/[0.04]"],
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/[0.055]"] {
+  background-color: rgba(30, 41, 59, 0.045) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="bg-white/10"] {
+  background-color: rgba(30, 41, 59, 0.075) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="border-white/5"],
+.workspace-shell[data-workspace-theme="light"] [class~="border-white/[0.03]"] {
+  border-color: rgba(51, 65, 85, 0.09) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="border-white/10"],
+.workspace-shell[data-workspace-theme="light"] [class~="border-white/20"] {
+  border-color: rgba(51, 65, 85, 0.14) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="text-white"] {
+  color: #172033 !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="text-gray-300"] {
+  color: #334155 !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="text-gray-400"] {
+  color: #475569 !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="text-gray-500"] {
+  color: #64748b !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="text-gray-600"] {
+  color: #94a3b8 !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] :is(
+  [class*="bg-indigo-"],
+  [class*="bg-blue-"],
+  [class*="bg-purple-"],
+  [class*="bg-emerald-"],
+  [class*="bg-green-"],
+  [class*="bg-red-"],
+  [class*="bg-orange-"],
+  [class*="bg-pink-"]
+)[class~="text-white"],
+.workspace-shell[data-workspace-theme="light"] [class*="bg-gradient-"] [class~="text-white"] {
+  color: #ffffff !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="hover:bg-white/5"]:hover,
+.workspace-shell[data-workspace-theme="light"] [class~="hover:bg-white/10"]:hover {
+  background-color: rgba(30, 41, 59, 0.075) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="hover:text-white"]:hover {
+  color: #0f172a !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] :is(input, textarea, select) {
+  color: #172033;
+  caret-color: #4f46e5;
+}
+
+.workspace-shell[data-workspace-theme="light"] :is(input, textarea)::placeholder {
+  color: #94a3b8;
+}
+
+.workspace-shell[data-workspace-theme="light"] [class~="ring-[#141414]"] {
+  --tw-ring-color: #ffffff !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+@theme {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-outfit: var(--font-sans);
+  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+  --text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+  --text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+  --text-lg: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-xl: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-2xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+  --text-3xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);
+  --text-4xl: clamp(1.875rem, 1.65rem + 1.1vw, 2.25rem);
+  --text-5xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);
+}
+
+body {
+  @apply bg-black text-[#1D1D1F] antialiased transition-colors duration-200;
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none; /* Prevent pull-to-refresh on mobile if needed, or use contain */
+}
+
+/* Smooth scrolling for the whole app */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  font-size: calc(16px * var(--wersee-interface-scale));
+}
+
+.eula-prose p + p {
+  margin-top: 1rem;
+}
+
+.eula-prose ul {
+  margin: 1rem 0;
+  list-style: disc;
+  padding-left: 1.4rem;
+}
+
+.eula-prose li + li {
+  margin-top: 0.55rem;
+}
+
+.eula-prose a {
+  color: #1d4ed8;
+  font-weight: 650;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.eula-prose a:hover {
+  color: #1e3a8a;
+}
+
+.eula-prose a:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .eula-page *,
+  .eula-page *::before,
+  .eula-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  @page {
+    margin: 18mm 16mm;
+  }
+
+  html,
+  body,
+  #root,
+  .eula-page {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  body > * {
+    visibility: hidden;
+  }
+
+  #root,
+  #root *,
+  .eula-page,
+  .eula-page * {
+    visibility: visible;
+  }
+
+  #root > div > header,
+  #root > div > main > footer,
+  .eula-breadcrumb,
+  .eula-mobile-toc,
+  .eula-print-button,
+  .eula-page aside,
+  .eula-page + *,
+  [data-cookie-banner],
+  [role="dialog"] {
+    display: none !important;
+  }
+
+  #root > div,
+  #root > div > main,
+  .eula-page {
+    display: block !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .eula-page > div,
+  .eula-page main,
+  .eula-article {
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  .eula-page .grid {
+    display: block !important;
+  }
+
+  .eula-heading {
+    margin-bottom: 10mm !important;
+  }
+
+  .eula-article {
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .eula-section {
+    break-inside: avoid-page;
+  }
+
+  .eula-prose a[href^="http"]::after,
+  .eula-prose a[href^="/"]::after {
+    content: " (https://www.wersee.com" attr(href) ")";
+    overflow-wrap: anywhere;
+    font-weight: 400;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid #60a5fa !important;
+  outline-offset: 3px !important;
+}
+
+html[data-increased-contrast="true"] body {
+  color: #ffffff;
+}
+
+html[data-increased-contrast="true"] :is(button, a, input, select, textarea, [role="button"]) {
+  border-color: rgba(255, 255, 255, 0.38) !important;
+}
+
+html[data-increased-contrast="true"] :is(.text-gray-400, .text-gray-500) {
+  color: #d1d5db !important;
+}
+
+html[data-reduced-motion="true"] *,
+html[data-reduced-motion="true"] *::before,
+html[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Better touch targets for mobile */
+@media (max-width: 640px) {
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.3 0.005 260);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.4 0.005 260);
+}
+
+/* Hide scrollbar for horizontal scrolling but keep functionality */
+.no-scrollbar::-webkit-scrollbar, .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar, .scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Shared liquid-glass surface for navigation and storefront controls. */
+.liquid-glass-pill,
+.liquid-glass-pill-light {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.075) 48%, rgba(255, 255, 255, 0.035)),
+    rgba(8, 8, 12, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    0 16px 48px rgba(0, 0, 0, 0.34),
+    0 2px 10px rgba(100, 112, 255, 0.08);
+  -webkit-backdrop-filter: blur(28px) saturate(175%);
+  backdrop-filter: blur(28px) saturate(175%);
+}
+
+.liquid-glass-pill::before,
+.liquid-glass-pill-light::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(90% 80% at 18% -16%, rgba(255, 255, 255, 0.3), transparent 55%),
+    linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.08) 48%, transparent 72%);
+}
+
+.liquid-glass-pill > *,
+.liquid-glass-pill-light > * {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid-glass-pill-light {
+  border-color: rgba(255, 255, 255, 0.72);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.62)),
+    rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0 rgba(17, 24, 39, 0.07),
+    0 14px 42px rgba(15, 23, 42, 0.14);
+}
+
+/* Safe area utilities for mobile */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+/* Markdown Body Styles for Chat */
+.markdown-body {
+  @apply text-base leading-relaxed;
+}
+
+.markdown-body p {
+  @apply mb-6 last:mb-0;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  @apply font-bold mt-8 mb-4 text-[#1D1D1F] dark:text-white;
+}
+
+.markdown-body h1 { @apply text-3xl; }
+.markdown-body h2 { @apply text-2xl; }
+.markdown-body h3 { @apply text-xl; }
+
+.markdown-body ul, .markdown-body ol {
+  @apply pl-6 mb-6 space-y-3;
+}
+
+.markdown-body ul { @apply list-disc; }
+.markdown-body ol { @apply list-decimal; }
+
+.markdown-body li {
+  @apply pl-1;
+}
+
+.markdown-body code {
+  @apply bg-black/5 dark:bg-white/10 px-2 py-1 rounded font-mono text-sm font-medium;
+}
+
+.markdown-body pre {
+  @apply bg-black/5 dark:bg-white/5 p-6 rounded-2xl overflow-x-auto my-6 font-mono text-sm border border-black/5 dark:border-white/5;
+}
+
+.markdown-body blockquote {
+  @apply bg-blue-500/5 dark:bg-blue-400/5 rounded-xl px-6 py-4 italic my-6 text-gray-600 dark:text-gray-400;
+}
+
+.markdown-body strong {
+  @apply font-bold text-[#1D1D1F] dark:text-white;
+}
+
+.markdown-body em {
+  @apply italic;
+}
+
+.markdown-body hr {
+  @apply my-8 border-t border-black/5 dark:border-white/10;
+}
+
+.markdown-body a {
+  @apply text-blue-500 hover:underline font-medium;
+}
+
+/* PDF Generation Styles */
+.pdf-mode {
+  background-color: white !important;
+  color: black !important;
+  padding: 40px !important;
+  width: 1000px !important;
+  margin: 0 auto !important;
+}
+
+.pdf-mode * {
+  color: #1a1a1a !important;
+  border-color: #e5e7eb !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.pdf-mode .bg-\[\#111111\],
+.pdf-mode .bg-white\/5,
+.pdf-mode .bg-black\/20 {
+  background-color: transparent !important;
+  border: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.pdf-mode .border {
+  border-width: 1px !important;
+  border-style: solid !important;
+}
+
+.pdf-mode .rounded-2xl,
+.pdf-mode .rounded-xl {
+  border-radius: 0 !important;
+}
+
+.pdf-mode .text-gray-400,
+.pdf-mode .text-gray-500,
+.pdf-mode .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+.pdf-mode .text-emerald-400,
+.pdf-mode .text-emerald-500 {
+  color: #059669 !important;
+}
+
+.pdf-mode .bg-emerald-500 {
+  background-color: #059669 !important;
+  color: white !important;
+}
+
+.pdf-mode .border-white\/10,
+.pdf-mode .border-white\/5 {
+  border-color: #e5e7eb !important;
+}
+
+.pdf-mode button,
+.pdf-mode .sticky,
+.pdf-mode form,
+.pdf-mode .lg\:col-span-1, /* Hide sidebar in PDF if it's just comments */
+.pdf-mode #feedback-section {
+  display: none !important;
+}
+
+.pdf-mode .lg\:col-span-2 {
+  grid-column: span 3 / span 3 !important;
+}
+
+.pdf-mode .deliverable-row {
+  border-bottom: 1px solid #e5e7eb !important;
+  padding: 12px 0 !important;
+}
+
+.pdf-mode .total-section {
+  border-top: 2px solid #1a1a1a !important;
+  margin-top: 24px !important;
+  padding-top: 12px !important;
+}
+
+@layer utilities {
+  .perspective-1000 { perspective: 1000px; }
+  .preserve-3d { transform-style: preserve-3d; }
+  .backface-hidden { backface-visibility: hidden; }
+  .rotate-y-180 { transform: rotateY(180deg); }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

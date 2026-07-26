@@ -1,0 +1,53 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "outputDirectory": "public",
+  "regions": [
+    "fra1"
+  ],
+  "functions": {
+    "api/storage.ts": {
+      "maxDuration": 300,
+      "includeFiles": "node_modules/ssh2-sftp-client/**"
+    }
+  },
+  "headers": [
+    {
+      "source": "/api/storage/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/storage/maintenance/cleanup",
+      "schedule": "17 3 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/storage/:path*",
+      "destination": "/api/storage?__storage_path=:path*"
+    },
+    {
+      "source": "/cdn/:fileId/raw",
+      "destination": "/api/storage?__storage_path=cdn/:fileId&raw=1"
+    },
+    {
+      "source": "/cdn/:fileId",
+      "destination": "/api/storage?__storage_path=cdn/:fileId"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/storage?__storage_path=health"
+    }
+  ]
+}

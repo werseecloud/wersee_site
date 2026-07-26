@@ -1,0 +1,6 @@
+Contact: mailto:security@wersee.com
+Expires: 2027-07-22T00:00:00.000Z
+Preferred-Languages: en, nl
+Canonical: https://wersee.com/.well-known/security.txt
+Policy: https://wersee.com/terms#security
+Hiring: https://wersee.com/jobs

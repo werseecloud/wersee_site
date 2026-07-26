@@ -14,3 +14,7 @@ dist-electron/
 build/
 *.exe
 *.apk
+
+.vercel
+.env*
+infrastructure/strato-storage/config.php

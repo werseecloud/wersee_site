@@ -1,0 +1,34 @@
+{
+  "short_name": "Wersee",
+  "name": "Wersee Workspace",
+  "id": "/",
+  "description": "Build, sell, get paid, and grow with Wersee.",
+  "icons": [
+    {
+      "src": "/brand/wersee-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/wersee-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/brand/wersee-icon-maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#070A2E",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#070A2E",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "shopping"]
+}

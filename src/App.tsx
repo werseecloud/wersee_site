@@ -1,152 +1,203 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'motion/react';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LocaleProvider } from './context/LocaleContext';
 import { NavBar } from './components/NavBar';
-import { BottomNav } from './components/BottomNav';
 import { SetupBanner } from './components/SetupBanner';
 import { CookieBanner } from './components/CookieBanner';
 import { Footer } from './components/Footer';
-import { Auth } from './pages/Auth';
-import { ForgotPassword } from './pages/ForgotPassword';
-import { UpdatePassword } from './pages/UpdatePassword';
-import { AuthCallback } from './pages/AuthCallback';
-import { ConfirmEmail } from './pages/ConfirmEmail';
-import { OAuthConsent } from './pages/OAuthConsent';
-import { PrivacyPolicy } from './pages/PrivacyPolicy';
-import { AmbassadorProgram } from './pages/AmbassadorProgram';
-import { Search as SearchPage } from './pages/Search';
-import { Profile } from './pages/Profile';
 import { Home } from './pages/Home';
-import { Announcements } from './pages/Announcements';
-import { AnnouncementDetail } from './pages/AnnouncementDetail';
-import { ListingDetail } from './pages/ListingDetail';
-import { Dashboard } from './pages/Dashboard';
-import { Chat } from './pages/Chat';
-import { SellingTips } from './pages/SellingTips';
-import { Blog } from './pages/Blog';
-import { Checkout } from './pages/Checkout';
-import { AiPlanCheckout } from './pages/AiPlanCheckout';
-import { Success } from './pages/Success';
-import { AccessContent } from './pages/AccessContent';
-import { FreeConfirmation } from './pages/FreeConfirmation';
-import { CommunityView } from './pages/CommunityView';
-import { DocumentationView } from './pages/DocumentationView';
-import { BuyerProtection } from './pages/BuyerProtection';
-import { WarrantyRules } from './pages/WarrantyRules';
-import { Support } from './pages/Support';
-import { HelpArticle } from './pages/HelpArticle';
-import { LiveChat } from './pages/LiveChat';
-import { SetupAccount } from './pages/SetupAccount';
 import { LiveActivityBanner } from './components/LiveActivityBanner';
 import { GlobalProtection } from './components/GlobalProtection';
-
-import { MobileUpload } from './pages/MobileUpload';
-import { AffiliateJoinView } from './components/workspace/AffiliateJoinView';
-import { Terms } from './pages/Terms';
-import { QuickPayCheckout } from './components/public/QuickPayCheckout';
-import { InvoicePublicView } from './components/public/InvoicePublicView';
-import { InvoicePaymentPage as OldInvoicePaymentPage } from './components/public/InvoicePaymentPage';
-import InvoicePaymentPage from './pages/pay/invoice/InvoicePaymentPage';
-import InvoicePdfViewer from './pages/InvoicePdfViewer';
-import { SubscriptionPublicView } from './components/public/SubscriptionPublicView';
-import { PaymentSuccess } from './pages/PaymentSuccess';
-import { PosTerminal } from './pages/PosTerminal';
-import { PosCheckoutPage } from './pages/PosCheckoutPage';
-import { PosAuth } from './pages/PosAuth';
-import { PosNfcMobile } from './pages/PosNfcMobile';
-import { PayoutInfoPage } from './pages/PayoutInfo';
-import { FeesAndPlansPage } from './pages/FeesAndPlans';
-import { StatusPage } from './pages/StatusPage';
-import { NextGenPos } from './pages/features/NextGenPos';
-import { WerseePay } from './pages/features/WerseePay';
-import { WerseePaySecurityPage } from './pages/public/WerseePaySecurityPage';
-import { AccountSecurityPage } from './pages/public/AccountSecurityPage';
-import { CommandCenter } from './pages/features/CommandCenter';
-import { OmniManagement } from './pages/features/OmniManagement';
-import { AcademyBuilder } from './pages/features/AcademyBuilder';
-import { PartnerNetwork } from './pages/features/PartnerNetwork';
-import { ZeroCostEntry } from './pages/features/ZeroCostEntry';
-import { VentureLaunchpad } from './pages/features/VentureLaunchpad';
-import { IntelligenceCore } from './pages/features/IntelligenceCore';
-import { FlashCheckout } from './pages/features/FlashCheckout';
-import { DemoFlashCheckout } from './pages/demo/DemoFlashCheckout';
-import WerseeCreators from './pages/features/WerseeCreators';
-import WerseeTreasure from './pages/features/WerseeTreasure';
-import WerseeInvoices from './pages/features/WerseeInvoices';
-import WerseeSovereign from './pages/features/WerseeSovereign';
-import { CustomAppLP } from './pages/CustomAppLP';
-import { CustomAppBuild } from './pages/CustomAppBuild';
-import { EnterpriseSolutions } from './pages/EnterpriseSolutions';
-import { CallBooking } from './pages/CallBooking';
-import { BookingDashboard } from './components/BookingDashboard';
-import { CallConfigWizard } from './components/CallConfigWizard';
-import { SocialLandingPage } from './pages/SocialLandingPage';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { InvitePage } from './pages/InvitePage';
-import { AddFriendPage } from './pages/AddFriendPage';
-import { ChatInvitePage } from './pages/ChatInvitePage';
-import { CommunityInvitePage } from './pages/CommunityInvitePage';
-import { MessageSharePage } from './pages/MessageSharePage';
-import { AdsManager } from './components/workspace/AdsManager';
 import { HelmetProvider } from 'react-helmet-async';
+import { SEO } from './components/SEO';
+import { parseUsernameRouteValue, routePatterns, routes } from './routing/routes';
 
-import { BuilderPage } from './pages/BuilderPage';
-import { LoggedOut } from './pages/LoggedOut';
-import { Learn } from './pages/Learn';
-import { SharedFileView } from './pages/SharedFileView';
-import { Jobs } from './pages/Jobs';
-import { JobApplication } from './pages/JobApplication';
-import { SecurityVerify } from './pages/SecurityVerify';
-import { AboutUs } from './pages/AboutUs';
-import { Roadmap } from './pages/Roadmap';
-import { InteractiveExportView } from './pages/InteractiveExportView';
-import { ProposalPublicView } from './pages/ProposalPublicView';
-import { ContractPublicView } from './pages/ContractPublicView';
-import { CookiePolicy } from './pages/CookiePolicy';
-import { Imprint } from './pages/Imprint';
-import { Disclaimer } from './pages/Disclaimer';
-import { NotFound } from './pages/NotFound';
-import { Investments } from './pages/Investments';
-import InvestmentDetails from './pages/InvestmentDetails';
-import { Portfolio } from './pages/Portfolio';
+const lazyNamed = <T extends React.ComponentType<any>>(
+  loader: () => Promise<any>,
+  exportName: string,
+) => React.lazy(async () => {
+  const module = await loader();
+  return { default: module[exportName] as T };
+});
 
-import { StudentDiscount } from './components/education/StudentDiscount';
-import { CampusProgram } from './components/education/CampusProgram';
-import { LearningPaths } from './components/education/LearningPaths';
-import { EduResources } from './components/education/EduResources';
-
-import { GiveawayLandingPage } from './components/workspace/GiveawayLandingPage';
-import { FormPublicView } from './pages/FormPublicView';
-import { Pricing } from './components/Pricing';
-import { AdminPlans } from './components/AdminPlans';
-import { CityCampaign } from './pages/CityCampaign';
-import { NextGenSetup } from './pages/NextGenSetup';
-import { NextGenInvite } from './pages/NextGenInvite';
-import { NextGenLanding } from './pages/NextGenLanding';
-import { AllPages } from './pages/AllPages';
-import { EduGames } from './pages/EduGames';
-import { GuardianPortal } from './pages/GuardianPortal';
-import { SafetyControls } from './pages/SafetyControls';
-import { BotGuide } from './pages/BotGuide';
-import { LinkAccount } from './pages/LinkAccount';
+const Auth = lazyNamed(() => import('./pages/Auth'), 'Auth');
+const ForgotPassword = lazyNamed(() => import('./pages/ForgotPassword'), 'ForgotPassword');
+const UpdatePassword = lazyNamed(() => import('./pages/UpdatePassword'), 'UpdatePassword');
+const AuthCallback = lazyNamed(() => import('./pages/AuthCallback'), 'AuthCallback');
+const ConfirmEmail = lazyNamed(() => import('./pages/ConfirmEmail'), 'ConfirmEmail');
+const OAuthConsent = lazyNamed(() => import('./pages/OAuthConsent'), 'OAuthConsent');
+const PrivacyPolicy = lazyNamed(() => import('./pages/PrivacyPolicy'), 'PrivacyPolicy');
+const AmbassadorProgram = lazyNamed(() => import('./pages/AmbassadorProgram'), 'AmbassadorProgram');
+const SearchPage = lazyNamed(() => import('./pages/Search'), 'Search');
+const Profile = lazyNamed(() => import('./pages/Profile'), 'Profile');
+const Announcements = lazyNamed(() => import('./pages/Announcements'), 'Announcements');
+const AnnouncementDetail = lazyNamed(() => import('./pages/AnnouncementDetail'), 'AnnouncementDetail');
+const ListingDetail = lazyNamed(() => import('./pages/ListingDetail'), 'ListingDetail');
+const Dashboard = lazyNamed(() => import('./pages/Dashboard'), 'Dashboard');
+const Chat = lazyNamed(() => import('./pages/Chat'), 'Chat');
+const SellingTips = lazyNamed(() => import('./pages/SellingTips'), 'SellingTips');
+const Blog = lazyNamed(() => import('./pages/Blog'), 'Blog');
+const Checkout = lazyNamed(() => import('./pages/Checkout'), 'Checkout');
+const AiPlanCheckout = lazyNamed(() => import('./pages/AiPlanCheckout'), 'AiPlanCheckout');
+const Success = lazyNamed(() => import('./pages/Success'), 'Success');
+const AccessContent = lazyNamed(() => import('./pages/AccessContent'), 'AccessContent');
+const FreeConfirmation = lazyNamed(() => import('./pages/FreeConfirmation'), 'FreeConfirmation');
+const CommunityView = lazyNamed(() => import('./pages/CommunityView'), 'CommunityView');
+const DocumentationView = lazyNamed(() => import('./pages/DocumentationView'), 'DocumentationView');
+const BuyerProtection = lazyNamed(() => import('./pages/BuyerProtection'), 'BuyerProtection');
+const WarrantyRules = lazyNamed(() => import('./pages/WarrantyRules'), 'WarrantyRules');
+const Support = lazyNamed(() => import('./pages/Support'), 'Support');
+const HelpArticle = lazyNamed(() => import('./pages/HelpArticle'), 'HelpArticle');
+const LiveChat = lazyNamed(() => import('./pages/LiveChat'), 'LiveChat');
+const SetupAccount = lazyNamed(() => import('./pages/SetupAccount'), 'SetupAccount');
+const MobileUpload = lazyNamed(() => import('./pages/MobileUpload'), 'MobileUpload');
+const AffiliateJoinView = lazyNamed(() => import('./components/workspace/AffiliateJoinView'), 'AffiliateJoinView');
+const Terms = lazyNamed(() => import('./pages/Terms'), 'Terms');
+const Eula = lazyNamed(() => import('./pages/Eula'), 'Eula');
+const QuickPayCheckout = lazyNamed(() => import('./components/public/QuickPayCheckout'), 'QuickPayCheckout');
+const PayoutRecipientSetup = lazyNamed(() => import('./pages/PayoutRecipientSetup'), 'PayoutRecipientSetup');
+const InvoicePublicView = lazyNamed(() => import('./components/public/InvoicePublicView'), 'InvoicePublicView');
+const OldInvoicePaymentPage = lazyNamed(() => import('./components/public/InvoicePaymentPage'), 'InvoicePaymentPage');
+const InvoicePaymentPage = React.lazy(() => import('./pages/pay/invoice/InvoicePaymentPage'));
+const InvoicePdfViewer = React.lazy(() => import('./pages/InvoicePdfViewer'));
+const SubscriptionPublicView = lazyNamed(() => import('./components/public/SubscriptionPublicView'), 'SubscriptionPublicView');
+const PaymentSuccess = lazyNamed(() => import('./pages/PaymentSuccess'), 'PaymentSuccess');
+const PosTerminal = lazyNamed(() => import('./pages/PosTerminal'), 'PosTerminal');
+const PosCheckoutPage = lazyNamed(() => import('./pages/PosCheckoutPage'), 'PosCheckoutPage');
+const PosAuth = lazyNamed(() => import('./pages/PosAuth'), 'PosAuth');
+const PosNfcMobile = lazyNamed(() => import('./pages/PosNfcMobile'), 'PosNfcMobile');
+const PayoutInfoPage = lazyNamed(() => import('./pages/PayoutInfo'), 'PayoutInfoPage');
+const FeesAndPlansPage = lazyNamed(() => import('./pages/FeesAndPlans'), 'FeesAndPlansPage');
+const StatusPage = lazyNamed(() => import('./pages/StatusPage'), 'StatusPage');
+const NextGenPos = lazyNamed(() => import('./pages/features/NextGenPos'), 'NextGenPos');
+const WerseePay = lazyNamed(() => import('./pages/features/WerseePay'), 'WerseePay');
+const WerseePaySecurityPage = lazyNamed(() => import('./pages/public/WerseePaySecurityPage'), 'WerseePaySecurityPage');
+const AccountSecurityPage = lazyNamed(() => import('./pages/public/AccountSecurityPage'), 'AccountSecurityPage');
+const CommandCenter = lazyNamed(() => import('./pages/features/CommandCenter'), 'CommandCenter');
+const OmniManagement = lazyNamed(() => import('./pages/features/OmniManagement'), 'OmniManagement');
+const AcademyBuilder = lazyNamed(() => import('./pages/features/AcademyBuilder'), 'AcademyBuilder');
+const PartnerNetwork = lazyNamed(() => import('./pages/features/PartnerNetwork'), 'PartnerNetwork');
+const ZeroCostEntry = lazyNamed(() => import('./pages/features/ZeroCostEntry'), 'ZeroCostEntry');
+const VentureLaunchpad = lazyNamed(() => import('./pages/features/VentureLaunchpad'), 'VentureLaunchpad');
+const IntelligenceCore = lazyNamed(() => import('./pages/features/IntelligenceCore'), 'IntelligenceCore');
+const FlashCheckout = lazyNamed(() => import('./pages/features/FlashCheckout'), 'FlashCheckout');
+const DemoFlashCheckout = lazyNamed(() => import('./pages/demo/DemoFlashCheckout'), 'DemoFlashCheckout');
+const CreatorMode = React.lazy(() => import('./pages/creators/CreatorMode'));
+const PublicCreatorProfile = React.lazy(() => import('./pages/creators/PublicCreatorProfile'));
+const CreatorOnboardingPage = React.lazy(() => import('./pages/creators/CreatorOnboardingPage'));
+const CreatorOverview = React.lazy(() => import('./pages/creators/CreatorOverview'));
+const CreatorProfile = React.lazy(() => import('./pages/creators/CreatorProfile'));
+const CreatorAnalytics = React.lazy(() => import('./pages/creators/CreatorAnalytics'));
+const CreatorLinks = React.lazy(() => import('./pages/creators/CreatorLinks'));
+const CreatorCampaigns = React.lazy(() => import('./pages/creators/CreatorCampaigns'));
+const CreatorAudience = React.lazy(() => import('./pages/creators/CreatorAudience'));
+const CreatorRevenue = React.lazy(() => import('./pages/creators/CreatorRevenue'));
+const CreatorEarnings = React.lazy(() => import('./pages/creators/CreatorEarnings'));
+const CreatorPayouts = React.lazy(() => import('./pages/creators/CreatorPayouts'));
+const CreatorInvites = React.lazy(() => import('./pages/creators/CreatorInvites'));
+const CreatorPlatforms = React.lazy(() => import('./pages/creators/CreatorPlatforms'));
+const CreatorShareKit = React.lazy(() => import('./pages/creators/CreatorShareKit'));
+const CreatorDocs = React.lazy(() => import('./pages/creators/CreatorDocs'));
+const CreatorSettings = React.lazy(() => import('./pages/creators/CreatorSettings'));
+const CreatorReferralRedirect = React.lazy(() => import('./pages/creators/CreatorReferralRedirect'));
+const WerseeTreasure = React.lazy(() => import('./pages/features/WerseeTreasure'));
+const WerseeInvoices = React.lazy(() => import('./pages/features/WerseeInvoices'));
+const WerseeSovereign = React.lazy(() => import('./pages/features/WerseeSovereign'));
+const CustomAppLP = lazyNamed(() => import('./pages/CustomAppLP'), 'CustomAppLP');
+const CustomAppBuild = lazyNamed(() => import('./pages/CustomAppBuild'), 'CustomAppBuild');
+const EnterpriseSolutions = lazyNamed(() => import('./pages/EnterpriseSolutions'), 'EnterpriseSolutions');
+const CallBooking = lazyNamed(() => import('./pages/CallBooking'), 'CallBooking');
+const BookingDashboard = lazyNamed(() => import('./components/BookingDashboard'), 'BookingDashboard');
+const CallConfigWizard = lazyNamed(() => import('./components/CallConfigWizard'), 'CallConfigWizard');
+const SocialLandingPage = lazyNamed(() => import('./pages/SocialLandingPage'), 'SocialLandingPage');
+const InvitePage = lazyNamed(() => import('./pages/InvitePage'), 'InvitePage');
+const AddFriendPage = lazyNamed(() => import('./pages/AddFriendPage'), 'AddFriendPage');
+const ChatInvitePage = lazyNamed(() => import('./pages/ChatInvitePage'), 'ChatInvitePage');
+const PublicDmPage = lazyNamed(() => import('./pages/PublicDmPage'), 'PublicDmPage');
+const CommunityInvitePage = lazyNamed(() => import('./pages/CommunityInvitePage'), 'CommunityInvitePage');
+const MessageSharePage = lazyNamed(() => import('./pages/MessageSharePage'), 'MessageSharePage');
+const AdsManager = lazyNamed(() => import('./components/workspace/AdsManager'), 'AdsManager');
+const BuilderPage = lazyNamed(() => import('./pages/BuilderPage'), 'BuilderPage');
+const LoggedOut = lazyNamed(() => import('./pages/LoggedOut'), 'LoggedOut');
+const Learn = lazyNamed(() => import('./pages/Learn'), 'Learn');
+const SharedFileView = lazyNamed(() => import('./pages/SharedFileView'), 'SharedFileView');
+const Jobs = lazyNamed(() => import('./pages/Jobs'), 'Jobs');
+const JobApplication = lazyNamed(() => import('./pages/JobApplication'), 'JobApplication');
+const SecurityVerify = lazyNamed(() => import('./pages/SecurityVerify'), 'SecurityVerify');
+const AboutUs = lazyNamed(() => import('./pages/AboutUs'), 'AboutUs');
+const Roadmap = lazyNamed(() => import('./pages/Roadmap'), 'Roadmap');
+const InteractiveExportView = lazyNamed(() => import('./pages/InteractiveExportView'), 'InteractiveExportView');
+const FunnelShareView = lazyNamed(() => import('./pages/FunnelShareView'), 'FunnelShareView');
+const ProposalPublicView = lazyNamed(() => import('./pages/ProposalPublicView'), 'ProposalPublicView');
+const ContractPublicView = lazyNamed(() => import('./pages/ContractPublicView'), 'ContractPublicView');
+const CookiePolicy = lazyNamed(() => import('./pages/CookiePolicy'), 'CookiePolicy');
+const Imprint = lazyNamed(() => import('./pages/Imprint'), 'Imprint');
+const Disclaimer = lazyNamed(() => import('./pages/Disclaimer'), 'Disclaimer');
+const NotFound = lazyNamed(() => import('./pages/NotFound'), 'NotFound');
+const InvestmentDetails = React.lazy(() => import('./pages/InvestmentDetails'));
+const Portfolio = lazyNamed(() => import('./pages/Portfolio'), 'Portfolio');
+const StudentDiscount = lazyNamed(() => import('./components/education/StudentDiscount'), 'StudentDiscount');
+const CampusProgram = lazyNamed(() => import('./components/education/CampusProgram'), 'CampusProgram');
+const LearningPaths = lazyNamed(() => import('./components/education/LearningPaths'), 'LearningPaths');
+const EduResources = lazyNamed(() => import('./components/education/EduResources'), 'EduResources');
+const GiveawayLandingPage = lazyNamed(() => import('./components/workspace/GiveawayLandingPage'), 'GiveawayLandingPage');
+const FormPublicView = lazyNamed(() => import('./pages/FormPublicView'), 'FormPublicView');
+const Pricing = lazyNamed(() => import('./components/Pricing'), 'Pricing');
+const AdminPlans = lazyNamed(() => import('./components/AdminPlans'), 'AdminPlans');
+const CityCampaign = lazyNamed(() => import('./pages/CityCampaign'), 'CityCampaign');
+const NextGenSetup = lazyNamed(() => import('./pages/NextGenSetup'), 'NextGenSetup');
+const NextGenInvite = lazyNamed(() => import('./pages/NextGenInvite'), 'NextGenInvite');
+const NextGenLanding = lazyNamed(() => import('./pages/NextGenLanding'), 'NextGenLanding');
+const AllPages = lazyNamed(() => import('./pages/AllPages'), 'AllPages');
+const EduGames = lazyNamed(() => import('./pages/EduGames'), 'EduGames');
+const GuardianPortal = lazyNamed(() => import('./pages/GuardianPortal'), 'GuardianPortal');
+const SafetyControls = lazyNamed(() => import('./pages/SafetyControls'), 'SafetyControls');
+const BotGuide = lazyNamed(() => import('./pages/BotGuide'), 'BotGuide');
+const LinkAccount = lazyNamed(() => import('./pages/LinkAccount'), 'LinkAccount');
 
 const PlaceholderPage = ({ title }: { title: string }) => (
-  <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
-    <h1 className="text-2xl font-bold text-[#1D1D1F] mb-2">{title}</h1>
-    <p className="text-[#86868B]">This page is still under development.</p>
-  </div>
+  <>
+    <SEO title={title} noIndex />
+    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 text-center">
+      <h1 className="text-2xl font-bold text-[#1D1D1F] mb-2">{title}</h1>
+      <p className="text-[#86868B]">This page is still under development.</p>
+    </div>
+  </>
 );
 
-import { BusinessPublicView } from './pages/BusinessPublicView';
-import { ProfileOrBusiness } from './components/ProfileOrBusiness';
+const DashboardBusinessRedirect = () => {
+  const { businessId } = useParams();
+  return (
+    <Navigate
+      to={businessId ? routes.workspacePage({ pageName: businessId }) : '/workspace'}
+      replace
+    />
+  );
+};
 
-import { BusinessPortal } from './pages/BusinessPortal';
+const LegacyMessagesRedirect = () => {
+  const { username } = useParams();
+  const { user } = useAuth();
 
-import { Transparency } from './pages/Transparency';
-import { DownloadApp } from './pages/DownloadApp';
+  const normalizedUsername =
+    parseUsernameRouteValue(username) ||
+    parseUsernameRouteValue(user?.email?.split('@')[0] || '');
+
+  if (!normalizedUsername) {
+    return <Navigate to="/workspace/chats" replace />;
+  }
+
+  return <Navigate to={routes.userWorkspaceChats({ username: normalizedUsername })} replace />;
+};
+
+const ProfileOrBusiness = lazyNamed(() => import('./components/ProfileOrBusiness'), 'ProfileOrBusiness');
+const BusinessPortal = lazyNamed(() => import('./pages/BusinessPortal'), 'BusinessPortal');
+const Transparency = lazyNamed(() => import('./pages/Transparency'), 'Transparency');
+const DownloadApp = lazyNamed(() => import('./pages/DownloadApp'), 'DownloadApp');
 
 const InvestMarketplace = React.lazy(() => import('./pages/invest/InvestMarketplace'));
 const InvestCampaignDetail = React.lazy(() => import('./pages/invest/InvestCampaignDetail'));
@@ -162,11 +213,31 @@ const LazyRoute = ({ children }: { children: React.ReactNode }) => (
   </React.Suspense>
 );
 
+const RouteErrorBoundary = ({
+  disabled,
+  routeKey,
+  children,
+}: {
+  disabled: boolean;
+  routeKey: string;
+  children: React.ReactNode;
+}) => {
+  if (disabled) return <>{children}</>;
+
+  return <ErrorBoundary key={routeKey}>{children}</ErrorBoundary>;
+};
+
 const AnimatedRoutes = () => {
   const location = useLocation();
+  const isLoginRoute =
+    location.pathname === '/auth' ||
+    location.pathname.startsWith('/auth/flow/') ||
+    location.pathname === '/auth/callback' ||
+    location.pathname === '/signin' ||
+    location.pathname === '/login';
   const routeKey = location.pathname.includes('/workspace')
     ? '/workspace'
-    : location.pathname.startsWith('/auth/flow/') || location.pathname === '/auth' || location.pathname === '/signin' || location.pathname === '/login'
+    : isLoginRoute
       ? '/auth'
       : location.pathname;
   const isDetail = location.pathname.startsWith('/listing/');
@@ -203,7 +274,9 @@ const AnimatedRoutes = () => {
   const isPortal = location.pathname.startsWith('/portal/');
   const isLearn = location.pathname.startsWith('/learn');
   const isLearnPlayer = location.pathname.split('/').length > 2 && location.pathname.startsWith('/learn');
-  const isCreators = location.pathname === '/creators';
+  const isCreators = location.pathname === '/creators' || location.pathname.startsWith('/creators/');
+  const isCreatorPublic = location.pathname.startsWith('/creator/');
+  const isCreatorReferral = location.pathname.startsWith('/r/');
   const isTreasure = location.pathname === '/treasure';
   const isInvoices = location.pathname === '/invoices';
   const isJobs = location.pathname === '/jobs';
@@ -221,15 +294,19 @@ const AnimatedRoutes = () => {
   const isGiveaway = location.pathname.startsWith('/g/');
   const isForm = location.pathname.startsWith('/f/');
   const isBuilder = location.pathname.startsWith('/builder/');
+  const isCreate = location.pathname === '/create' || location.pathname.startsWith('/create/');
   const isSocialLanding = location.pathname.startsWith('/welcome/');
+  const isPublicDm =
+    location.pathname.startsWith('/pd/') ||
+    location.pathname.startsWith('/public-dm/');
   const isSovereign = location.pathname === '/sovereign';
   const isTransparency = location.pathname === '/transparency';
-  const isInvest = location.pathname === '/invest' || location.pathname.startsWith('/invest/') || /^\/[^/]+\/invest(\/|$)/.test(location.pathname);
+  const isInvest = location.pathname === '/invest' || location.pathname.startsWith('/invest/') || location.pathname.startsWith('/fund/') || /^\/[^/]+\/invest(\/|$)/.test(location.pathname);
 
   const isNextGenWizard = location.pathname.startsWith('/next-gen-setup') || location.pathname.startsWith('/next-gen-invite');
 
   const isEmbed = location.search.includes('embed=true');
-  const hideNavAndFooter = isDetail || isAuth || isAuthCallback || isOAuthConsent || isWorkspace || isChat || isAddFriend || isMobileUpload || isCheckout || isSuccess || isAccess || isFree || isCommunity || isBuyerProtection || isWarrantyRules || isSupport || isHelp || isLiveChat || isAffiliateJoin || isQuickPay || isInvoice || isSubscription || isPos || isPaymentSuccess || isFeature || isFeesPlans || isPayoutInfo || isStatus || isCustomApp || isCustomAppBuild || isEnterprise || isPortal || isLearnPlayer || isCreators || isTreasure || isInvoices || isJobs || isWerseePaySecurity || isAccountSecurity || isSecurityVerify || isInteractiveExport || isProposal || isContract || isInvest || isGiveaway || isInvitePage || isCommunityInvitePage || isForm || isBuilder || isSocialLanding || isEmbed || isNextGenWizard;
+  const hideNavAndFooter = isDetail || isAuth || isAuthCallback || isOAuthConsent || isWorkspace || isChat || isAddFriend || isMobileUpload || isCheckout || isSuccess || isAccess || isFree || isCommunity || isBuyerProtection || isWarrantyRules || isSupport || isHelp || isLiveChat || isAffiliateJoin || isQuickPay || isInvoice || isSubscription || isPos || isPaymentSuccess || isFeature || isFeesPlans || isPayoutInfo || isStatus || isCustomApp || isCustomAppBuild || isEnterprise || isPortal || isLearnPlayer || isCreators || isCreatorPublic || isCreatorReferral || isTreasure || isInvoices || isJobs || isWerseePaySecurity || isAccountSecurity || isSecurityVerify || isInteractiveExport || isProposal || isContract || isInvest || isGiveaway || isInvitePage || isCommunityInvitePage || isForm || isBuilder || isCreate || isSocialLanding || isPublicDm || isEmbed || isNextGenWizard;
   
   const hideNavBar = hideNavAndFooter || isSovereign;
 
@@ -238,27 +315,30 @@ const AnimatedRoutes = () => {
       {!hideNavBar && <NavBar />}
       
       <main className={`flex-1 flex flex-col bg-black relative pt-safe pb-safe ${!hideNavAndFooter ? "pb-[calc(4rem+max(env(safe-area-inset-bottom),16px))] sm:pb-8" : ""}`}>
-        <ErrorBoundary key={location.pathname}>
+        <RouteErrorBoundary disabled={isLoginRoute} routeKey={routeKey}>
           <AnimatePresence mode="popLayout" initial={false}>
+            <React.Suspense fallback={<div className="min-h-[50vh] bg-black pt-32 text-center text-gray-400" role="status">Loading page…</div>}>
             <Routes location={location} key={routeKey}>
               <Route path="/" element={<Home />} />
               <Route path="/announcements" element={<Announcements />} />
               <Route path="/announcements/:id" element={<AnnouncementDetail />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/learn" element={<Learn />} />
-              <Route path="/messages" element={<PlaceholderPage title="Messages" />} />
+              <Route path="/messages" element={<LegacyMessagesRedirect />} />
+              <Route path={routePatterns.userProfile} element={<Profile />} />
               <Route path="/:slugOrUsername/profile" element={<Profile />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/profile/:id" element={<Profile />} />
               <Route path="/:username/chat" element={<Chat />} />
               <Route path="/:username/chats" element={<Chat />} />
-              <Route path="/:username/messages" element={<Chat />} />
+              <Route path="/:username/messages" element={<LegacyMessagesRedirect />} />
               <Route path="/:username/chat/invite/:token" element={<ChatInvitePage />} />
-              <Route path="/:username/:listingId/:listingSlug/editor" element={<ListingDetail />} />
-              <Route path="/:username/:slug" element={<ListingDetail />} />
+              <Route path={routePatterns.accountProductEditor} element={<ListingDetail />} />
+              <Route path={routePatterns.accountProductBySlug} element={<ListingDetail />} />
               <Route path="/share/:token" element={<SharedFileView />} />
               <Route path="/export/interactive/:sessionId" element={<InteractiveExportView />} />
-              <Route path="/auth" element={<Auth />} />
+              <Route path="/funnel/:token" element={<FunnelShareView />} />
+              <Route path="/auth/*" element={<Auth />} />
               <Route path="/signin" element={<Auth />} />
               <Route path="/login" element={<Auth />} />
               <Route path="/sign-in" element={<Navigate to="/signin" replace />} />
@@ -266,21 +346,21 @@ const AnimatedRoutes = () => {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/update-password" element={<UpdatePassword />} />
               <Route path="/terms" element={<Terms />} />
+              <Route path="/eula" element={<Eula />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/cookies" element={<CookiePolicy />} />
               <Route path="/imprint" element={<Imprint />} />
               <Route path="/disclaimer" element={<Disclaimer />} />
               <Route path="/ambassador-program" element={<AmbassadorProgram />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
-              <Route path="/auth/flow/:authStep/:authSessionId" element={<Auth />} />
               <Route path="/confirm-email" element={<ConfirmEmail />} />
               <Route path="/logged-out" element={<LoggedOut />} />
               <Route path="/oauth/consent" element={<OAuthConsent />} />
-              <Route path="/listing/:id" element={<ListingDetail />} />
-              <Route path="/p/:slug" element={<ListingDetail />} />
+              <Route path={routePatterns.productById} element={<ListingDetail />} />
+              <Route path={routePatterns.productBySlug} element={<ListingDetail />} />
               <Route path="/dashboard" element={<Navigate to="/workspace" replace />} />
-              <Route path="/dashboard/:businessId" element={<Navigate to="/workspace/:businessId" replace />} />
-              <Route path="/workspace" element={<Dashboard />} />
+              <Route path="/dashboard/:businessId" element={<DashboardBusinessRedirect />} />
+              <Route path={routePatterns.rootWorkspace} element={<Dashboard />} />
               <Route path="/workspace/money/investments" element={<Dashboard />} />
               <Route path="/workspace/finance/investments" element={<Dashboard />} />
               <Route path="/workspace/businesses/:businessId/invest" element={<LazyRoute><BusinessInvestPage /></LazyRoute>} />
@@ -289,14 +369,16 @@ const AnimatedRoutes = () => {
               <Route path="/workspace/businesses/:businessId/invest/:campaignId/edit" element={<LazyRoute><BusinessInvestPage mode="edit" /></LazyRoute>} />
               <Route path="/workspace/admin/investments" element={<LazyRoute><AdminInvestmentsPage /></LazyRoute>} />
               <Route path="/workspace/admin/investments/:campaignId" element={<LazyRoute><AdminInvestmentsPage /></LazyRoute>} />
-              <Route path="/workspace/:pageName" element={<Dashboard />} />
-              <Route path="/workspace/:pageName/*" element={<Dashboard />} />
-              <Route path="/:username/workspace" element={<Dashboard />} />
-              <Route path="/:username/workspace/:pageName" element={<Dashboard />} />
-              <Route path="/:username/workspace/:pageName/*" element={<Dashboard />} />
+              <Route path={routePatterns.rootWorkspacePage} element={<Dashboard />} />
+              <Route path={routePatterns.rootWorkspaceNestedPage} element={<Dashboard />} />
+              <Route path={routePatterns.accountWorkspace} element={<Dashboard />} />
+              <Route path={routePatterns.accountWorkspacePage} element={<Dashboard />} />
+              <Route path={routePatterns.accountWorkspaceNestedPage} element={<Dashboard />} />
               <Route path="/add/:userId" element={<AddFriendPage />} />
               <Route path="/chat" element={<Chat />} />
               <Route path="/chat/invite/:token" element={<ChatInvitePage />} />
+              <Route path="/pd/:username" element={<PublicDmPage />} />
+              <Route path="/public-dm/:username" element={<PublicDmPage />} />
               <Route path="/selling-tips" element={<SellingTips />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/checkout" element={<Checkout />} />
@@ -317,26 +399,31 @@ const AnimatedRoutes = () => {
               <Route path="/setup-account" element={<SetupAccount />} />
               <Route path="/upload-mobile/:sessionId" element={<MobileUpload />} />
               <Route path="/affiliate/join" element={<AffiliateJoinView />} />
+              <Route path="/r/:username" element={<CreatorReferralRedirect />} />
+              <Route path="/r/:username/:slug" element={<CreatorReferralRedirect />} />
               
               {/* Custom Payment Routes */}
               <Route path="/sandbox/pay/invoice/:username/:invoiceId" element={<InvoicePaymentPage />} />
               <Route path="/sandbox/:username/quick-pay/:slug" element={<QuickPayCheckout />} />
               <Route path="/s/:username/quick-pay/:slug" element={<QuickPayCheckout />} />
+              <Route path="/payout/setup/:token" element={<PayoutRecipientSetup />} />
               <Route path="/pay/invoice/:username/:invoiceId" element={<InvoicePaymentPage />} />
               <Route path="/wersee-pay-security" element={<WerseePaySecurityPage />} />
               <Route path="/account-security" element={<AccountSecurityPage />} />
               <Route path="/invoice/view/:invoiceId" element={<InvoicePdfViewer />} />
               <Route path="/quick-pay/invoice/:invoiceNumber" element={<OldInvoicePaymentPage />} />
+              <Route path="/quick-pay/:username/:slug" element={<QuickPayCheckout />} />
               <Route path="/:username/quick-pay/invoice/:slug" element={<OldInvoicePaymentPage />} />
               <Route path="/:username/quick-pay/:slug" element={<QuickPayCheckout />} />
               <Route path="/:username/invoice/:slug" element={<InvoicePublicView />} />
+              <Route path="/:username/proposal/:id" element={<ProposalPublicView />} />
               <Route path="/proposal/:id" element={<ProposalPublicView />} />
               <Route path="/contract/:id" element={<ContractPublicView />} />
               <Route path="/:username/subscriptions/:slug" element={<SubscriptionPublicView />} />
-              <Route path="/:username/pos/:systemname/v1" element={<PosTerminal />} />
-              <Route path="/:username/pos/:systemname/v1/nfc/mobile" element={<PosNfcMobile />} />
-              <Route path="/:username/pos/:systemname/v1/:checkout_name/:checkout_id/checkout" element={<PosCheckoutPage />} />
-              <Route path="/:username/:systemname/qr-pay/:id" element={<PosCheckoutPage />} />
+              <Route path={routePatterns.accountPosTerminal} element={<PosTerminal />} />
+              <Route path={routePatterns.accountPosNfc} element={<PosNfcMobile />} />
+              <Route path={routePatterns.accountPosCheckout} element={<PosCheckoutPage />} />
+              <Route path={routePatterns.accountQrPay} element={<PosCheckoutPage />} />
               <Route path="/auth/:systemname/:token" element={<PosAuth />} />
               
               <Route path="/features/next-gen-pos" element={<NextGenPos />} />
@@ -348,7 +435,24 @@ const AnimatedRoutes = () => {
               <Route path="/features/zero-cost-entry" element={<ZeroCostEntry />} />
               <Route path="/features/venture-launchpad" element={<VentureLaunchpad />} />
               <Route path="/features/intelligence-core" element={<IntelligenceCore />} />
-              <Route path="/creators" element={<WerseeCreators />} />
+              <Route path="/creators" element={<CreatorMode />} />
+              <Route path="/creators/onboarding" element={<CreatorOnboardingPage />} />
+              <Route path="/creators/dashboard" element={<CreatorOverview />} />
+              <Route path="/creators/profile" element={<CreatorProfile />} />
+              <Route path="/creators/analytics" element={<CreatorAnalytics />} />
+              <Route path="/creators/links" element={<CreatorLinks />} />
+              <Route path="/creators/campaigns" element={<CreatorCampaigns />} />
+              <Route path="/creators/audience" element={<CreatorAudience />} />
+              <Route path="/creators/revenue" element={<CreatorRevenue />} />
+              <Route path="/creators/earnings" element={<CreatorEarnings />} />
+              <Route path="/creators/payouts" element={<CreatorPayouts />} />
+              <Route path="/creators/invites" element={<CreatorInvites />} />
+              <Route path="/creators/invite/:username" element={<CreatorInvites />} />
+              <Route path="/creators/platforms" element={<CreatorPlatforms />} />
+              <Route path="/creators/share-kit" element={<CreatorShareKit />} />
+              <Route path="/creators/docs" element={<CreatorDocs />} />
+              <Route path="/creators/settings" element={<CreatorSettings />} />
+              <Route path="/creator/:username" element={<PublicCreatorProfile />} />
               <Route path="/treasure" element={<WerseeTreasure />} />
               <Route path="/invoices" element={<WerseeInvoices />} />
               <Route path="/about" element={<AboutUs />} />
@@ -373,13 +477,15 @@ const AnimatedRoutes = () => {
               <Route path="/jobs" element={<Jobs />} />
               <Route path="/jobs/:id/apply" element={<JobApplication />} />
               <Route path="/portal/:businessSlug" element={<BusinessPortal />} />
-              <Route path="/:username/invest/:sessionId" element={<LazyRoute><InvestMarketplace /></LazyRoute>} />
-              <Route path="/:username/invest/:sessionId/stocks/:slug" element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
-              <Route path="/:username/invest/:sessionId/etfs/:slug" element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
-              <Route path="/:username/invest/:sessionId/crypto/:slug" element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
-              <Route path="/:username/invest/:sessionId/wersee/:slug" element={<LazyRoute><WerseeListingDetail /></LazyRoute>} />
-              <Route path="/:username/invest/:sessionId/:campaignSlug" element={<LazyRoute><InvestCampaignDetail /></LazyRoute>} />
-              <Route path="/:username/invest/:sessionId/:campaignSlug/checkout" element={<LazyRoute><InvestCheckout /></LazyRoute>} />
+              <Route path={routePatterns.accountInvest} element={<LazyRoute><InvestMarketplace /></LazyRoute>} />
+              <Route path={routePatterns.accountInvestStock} element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
+              <Route path={routePatterns.accountInvestEtf} element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
+              <Route path={routePatterns.accountInvestCrypto} element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
+              <Route path={routePatterns.accountInvestWersee} element={<LazyRoute><WerseeListingDetail /></LazyRoute>} />
+              <Route path={routePatterns.accountInvestCampaign} element={<LazyRoute><InvestCampaignDetail /></LazyRoute>} />
+              <Route path={routePatterns.accountInvestCheckout} element={<LazyRoute><InvestCheckout /></LazyRoute>} />
+              <Route path={routePatterns.publicFundCampaign} element={<LazyRoute><InvestCampaignDetail /></LazyRoute>} />
+              <Route path={routePatterns.publicFundCheckout} element={<LazyRoute><InvestCheckout /></LazyRoute>} />
               <Route path="/invest" element={<LazyRoute><InvestMarketplace /></LazyRoute>} />
               <Route path="/invest/stocks/:slug" element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
               <Route path="/invest/etfs/:slug" element={<LazyRoute><MarketAssetDetail /></LazyRoute>} />
@@ -425,6 +531,9 @@ const AnimatedRoutes = () => {
               <Route path="/f/:slug" element={<FormPublicView />} />
               <Route path="/builder/:type" element={<BuilderPage />} />
               <Route path="/builder/:type/:id" element={<BuilderPage />} />
+              <Route path="/create" element={<div className="min-h-screen bg-black" />} />
+              <Route path="/create/:type" element={<div className="min-h-screen bg-black" />} />
+              <Route path="/create/:type/:id" element={<div className="min-h-screen bg-black" />} />
               <Route path="/welcome/:source" element={<SocialLandingPage />} />
               {/* Redirect aliases for broken/linked pages */}
               <Route path="/ambassador" element={<Navigate to="/ambassador-program" replace />} />
@@ -435,11 +544,12 @@ const AnimatedRoutes = () => {
               <Route path="/partners" element={<PlaceholderPage title="Partner Program" />} />
               <Route path="/portal/demo" element={<Navigate to="/demo/flash-checkout" replace />} />
 
-              <Route path="/:slugOrUsername" element={<ProfileOrBusiness />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path={routePatterns.rootEntity} element={<ProfileOrBusiness />} />
+              <Route path={routePatterns.notFound} element={<NotFound />} />
             </Routes>
+            </React.Suspense>
           </AnimatePresence>
-        </ErrorBoundary>
+        </RouteErrorBoundary>
         {!hideNavAndFooter && <Footer />}
       </main>
 
@@ -449,34 +559,33 @@ const AnimatedRoutes = () => {
   );
 };
 
-import { ListingWizardProvider } from './context/ListingWizardContext';
-import { ListingWizard } from './components/listings/ListingWizard';
+import { ListingWizardProvider, useListingWizard } from './context/ListingWizardContext';
 
 import { VerificationBanner } from './components/VerificationBanner';
-import { PwaInstallBanner } from './components/PwaInstallBanner';
-import { supabase, invokeApiRunner, waitForServer } from './lib/supabase';
+import { invokeApiRunner, waitForServer } from './lib/supabase';
 import { useEffect } from 'react';
 import { Toaster } from 'sonner';
 import { FeedbackProvider } from './lib/feedback';
 
 import { SecurityAudit } from './components/SecurityAudit';
 import { MobileOptimization } from './components/MobileOptimization';
+import { MobileKeyboardPill } from './components/MobileKeyboardPill';
 import { getLocaleFromPathname } from './lib/locales';
+import { WerseeAiProvider } from './ai/context';
+
+const ListingWizard = lazyNamed(() => import('./components/listings/ListingWizard'), 'ListingWizard');
+
+const DeferredListingWizard = () => {
+  const { isOpen } = useListingWizard();
+  const location = useLocation();
+  if (!isOpen && !location.pathname.startsWith('/create')) return null;
+  return <React.Suspense fallback={null}><ListingWizard /></React.Suspense>;
+};
 
 export default function App() {
   useEffect(() => {
     const init = async () => {
       const isReady = await waitForServer();
-
-      // Check Supabase reachability
-      try {
-        const { error } = await supabase.from('profiles').select('id').limit(1);
-        if (error && error.message.includes('Failed to fetch')) {
-          throw new Error('Could not connect to Supabase. Please check your VITE_SUPABASE_URL.');
-        }
-      } catch (err: any) {
-          console.error('Supabase connection error:', err.message);
-      }
 
       if (import.meta.env.VITE_RUN_DATABASE_SETUP === 'true') {
         if (!isReady) {
@@ -507,6 +616,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+        <WerseeAiProvider>
         <HelmetProvider>
           <ListingWizardProvider>
             <SecurityAudit />
@@ -516,16 +626,17 @@ export default function App() {
               <LocaleProvider>
                 <FeedbackProvider>
                 <Toaster position="top-center" richColors />
+                <MobileKeyboardPill />
                 <LiveActivityBanner />
                 <VerificationBanner />
                 <AnimatedRoutes />
-                <ListingWizard />
-                <PwaInstallBanner />
+                <DeferredListingWizard />
                 </FeedbackProvider>
               </LocaleProvider>
             </BrowserRouter>
           </ListingWizardProvider>
         </HelmetProvider>
+        </WerseeAiProvider>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -1,0 +1,73 @@
+project_id = "pkgwzusngqwnmdfpifnd"
+
+[auth]
+site_url = "https://wersee.com"
+additional_redirect_urls = [
+  "https://wersee.com/auth/callback",
+  "https://www.wersee.com/auth/callback",
+  "http://localhost:3000/auth/callback",
+  "http://127.0.0.1:3000/auth/callback",
+  "https://billing.wersee.com",
+  "https://files.wersee.com",
+  "https://files.wersee.com/"
+]
+
+[auth.captcha]
+enabled = false
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[auth.email]
+max_frequency = "20s"
+otp_length = 8
+
+[auth.web3.solana]
+enabled = true
+
+[auth.web3.ethereum]
+enabled = true
+
+[auth.oauth_server]
+enabled = true
+authorization_url_path = "/oauth/consent"
+allow_dynamic_registration = true
+
+[functions.trust-center]
+verify_jwt = false
+
+[functions.wersee-ai]
+verify_jwt = true
+
+# Public webhook deliveries and the pg_cron worker reach this function without a
+# user JWT. The handler validates those paths with hashed single-purpose tokens;
+# every management action validates the caller's Supabase access token itself.
+[functions.workflow-engine]
+verify_jwt = false
+
+[functions.public-dm]
+verify_jwt = false
+
+[functions.call-ice-config]
+verify_jwt = true
+
+[functions.finance-api]
+verify_jwt = true
+
+[functions.localization]
+verify_jwt = false
+
+[functions.quick-pay-payment]
+verify_jwt = false
+
+[functions.workspace-email-domains]
+verify_jwt = true
+
+# Public invitation inspection is token-gated. The start action additionally
+# validates a confirmed Supabase user whose email matches the invitation.
+[functions.payout-recipient-onboarding]
+verify_jwt = false
+
+[storage.vector]
+enabled = false

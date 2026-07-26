@@ -1,0 +1,57 @@
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/75"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/70"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/65"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/60"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/55"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/50"] {
+  color: #475569 !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/45"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/40"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/35"] {
+  color: #64748b !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/30"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/25"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-white/20"] {
+  color: #94a3b8 !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class*="bg-[#121212]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class*="bg-[#151515]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class*="bg-[#171717]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class*="bg-[#181818]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class*="bg-[#101010]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class*="bg-[#0d0d0d]"] {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  box-shadow: 0 16px 45px rgba(34, 48, 76, 0.055);
+}
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="bg-black/20"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="bg-black/25"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="bg-black/30"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="bg-black/35"] {
+  background-color: rgba(30, 41, 59, 0.045) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="border-white/[0.05]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="border-white/[0.07]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="border-white/[0.08]"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="border-white/15"] {
+  border-color: rgba(51, 65, 85, 0.14) !important;
+}
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-violet-200"],
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-violet-300"] { color: #6d28d9 !important; }
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-sky-300"] { color: #0369a1 !important; }
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-emerald-300"] { color: #047857 !important; }
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-red-300"] { color: #b91c1c !important; }
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-fuchsia-300"] { color: #a21caf !important; }
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="text-amber-300"] { color: #b45309 !important; }
+
+.workspace-shell[data-workspace-theme="light"] .wersee-workflows [class~="bg-white"][class~="text-black"] {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}

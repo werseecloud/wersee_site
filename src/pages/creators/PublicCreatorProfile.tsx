@@ -1,0 +1,19 @@
+import { useEffect, useState } from 'react';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import { ArrowRight, Globe2, Loader2, Share2 } from 'lucide-react';
+import { SEO } from '../../components/SEO';
+import { supabase } from '../../lib/supabase';
+import { creatorReferralUrl } from '../../lib/creatorGrowth';
+import { parseUsernameRouteValue, routes } from '../../routing/routes';
+import { NotFound } from '../NotFound';
+
+export default function PublicCreatorProfile() {
+  const { username = '' } = useParams(); const normalizedUsername = parseUsernameRouteValue(username); const [creator, setCreator] = useState<any>(null); const [platforms, setPlatforms] = useState<any[]>([]); const [loading, setLoading] = useState(true); const [failed, setFailed] = useState(false);
+  useEffect(() => { let cancelled = false; (async () => { setLoading(true); setFailed(false); if (!normalizedUsername) { setCreator(null); setLoading(false); return; } const { data, error } = await supabase.from('creator_profiles').select('*, creator_platforms(*)').eq('username', normalizedUsername).eq('public_profile_enabled', true).eq('status', 'active').maybeSingle(); if (cancelled) return; if (error) { setFailed(true); setLoading(false); return; } setCreator(data); setPlatforms(data?.creator_platforms || []); setLoading(false); })(); return () => { cancelled = true; }; }, [normalizedUsername]);
+  if (loading) return <div className="flex min-h-screen items-center justify-center bg-black"><Loader2 className="animate-spin text-white" /></div>;
+  if (!normalizedUsername) return <NotFound />;
+  if (!creator && !failed) return <Navigate to={routes.userProfile({ username: normalizedUsername })} replace />;
+  if (failed) return <div className="flex min-h-screen flex-col items-center justify-center bg-black px-6 text-center text-white"><h1 className="text-3xl font-semibold">Creatorprofiel kon niet laden.</h1><button type="button" onClick={() => window.location.reload()} className="mt-6 rounded-full bg-white px-6 py-3 font-bold text-black">Probeer opnieuw</button></div>;
+  const referral = creatorReferralUrl(creator.username);
+  return <div className="min-h-screen bg-black px-6 py-10 text-white"><SEO title={creator.seo_title || `${creator.display_name || `@${creator.username}`} on Wersee`} description={creator.seo_description || creator.bio || `Discover @${creator.username} on Wersee.`} noIndex={!creator.seo_indexable} /><div className="mx-auto max-w-5xl"><header className="flex items-center justify-between"><Link to="/" className="liquid-glass-pill min-h-12 rounded-full px-6 font-semibold">Wersee</Link><button onClick={() => navigator.share?.({ title: creator.display_name, url: location.href })} className="liquid-glass-pill flex h-12 w-12 items-center justify-center rounded-full" aria-label="Share creator storefront"><Share2 className="h-4 w-4" /></button></header><main className="py-28"><div className="h-28 w-28 overflow-hidden rounded-[34px] border border-white/10 bg-white/[.05]">{creator.profile_image_url && <img src={creator.profile_image_url} className="h-full w-full object-cover" alt="" />}</div><p className="mt-9 text-sm font-bold uppercase tracking-[.25em] text-orange-300">@{creator.username}</p><h1 className="mt-4 max-w-4xl text-6xl font-semibold tracking-[-.06em] sm:text-8xl">{creator.display_name || creator.username}</h1>{creator.bio && <p className="mt-8 max-w-2xl text-xl leading-8 text-white/45">{creator.bio}</p>}<div className="mt-10 flex flex-wrap gap-2">{platforms.map((platform) => <span key={platform.id} className="liquid-glass-pill rounded-full px-4 py-2 text-sm text-white/70"><Globe2 className="mr-2 inline h-4 w-4" />{platform.platform}{platform.handle ? ` · ${platform.handle}` : ''}</span>)}</div><a href={referral} className="mt-12 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 font-bold text-black">Explore their Wersee picks <ArrowRight className="h-4 w-4" /></a></main></div></div>;
+}

@@ -1,0 +1,7 @@
+.git
+.tmp
+.playwright-cli
+dist-electron
+node_modules
+output
+test-results

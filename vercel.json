@@ -1,36 +1,149 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "",
-  "buildCommand": null,
+  "framework": "vite",
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "regions": [
-    "fra1"
-  ],
-  "functions": {
-    "api/sites.js": {
-      "maxDuration": 300
+  "redirects": [
+    {
+      "source": "/pay/invoice/:username/:invoiceId",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/pay/invoice/:username/:invoiceId",
+      "permanent": true
     },
-    "api/storage.js": {
-      "maxDuration": 300
+    {
+      "source": "/sandbox/pay/invoice/:username/:invoiceId",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/sandbox/pay/invoice/:username/:invoiceId",
+      "permanent": true
+    },
+    {
+      "source": "/quick-pay/invoice/:invoiceNumber",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/quick-pay/invoice/:invoiceNumber",
+      "permanent": true
+    },
+    {
+      "source": "/:username/quick-pay/invoice/:invoiceSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/:username/quick-pay/invoice/:invoiceSlug",
+      "permanent": true
+    },
+    {
+      "source": "/:username/quick-pay/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/:username/quick-pay/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/quick-pay/:username/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/quick-pay/:username/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/s/:username/quick-pay/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/s/:username/quick-pay/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/sandbox/:username/quick-pay/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/sandbox/:username/quick-pay/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/:username/invoice/:invoiceSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/:username/invoice/:invoiceSlug",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "wersee.com"
+        }
+      ],
+      "destination": "https://www.wersee.com/:path*",
+      "permanent": true
     }
-  },
+  ],
   "headers": [
     {
-      "source": "/api/storage/(.*)",
+      "source": "/((?!auth/front-channel-logout(?:/|$)).*)",
       "headers": [
         {
-          "key": "Cache-Control",
-          "value": "no-store"
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'none'"
         },
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
         }
       ]
     }
   ],
   "rewrites": [
+    {
+      "source": "/auth/front-channel-logout",
+      "destination": "/api/auth/front-channel-logout"
+    },
     {
       "source": "/api/site-events",
       "destination": "/api/sites?__sites_path=__events"
@@ -44,8 +157,24 @@
       "destination": "/api/storage?__storage_path=:path*"
     },
     {
+      "source": "/api",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/not-found"
+    },
+    {
       "source": "/r/:path*",
       "destination": "https://pkgwzusngqwnmdfpifnd.supabase.co/functions/v1/creator-referral/:path*"
+    },
+    {
+      "source": "/eula",
+      "destination": "/eula/index.html"
+    },
+    {
+      "source": "/eula/",
+      "destination": "/eula/index.html"
     },
     {
       "source": "/(.*)",

@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-o_MY0PFO.js";import{CreatorRoute as t}from"./CreatorMode-Dvfj8egN.js";import"./vendor-ui-BqKwBvFx.js";import"./index-CPKKhit-.js";import"./app-PlpCUacv.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-CvHIj_GR.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function f(){return r.jsx(t,{screen:"campaigns"})}export{f as default};
+//# sourceMappingURL=CreatorCampaigns-C28Rr8m4.js.map

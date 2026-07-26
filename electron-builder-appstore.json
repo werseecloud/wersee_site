@@ -1,0 +1,55 @@
+{
+  "appId": "com.wersee.appstore.desktop",
+  "productName": "Wersee App Store",
+  "copyright": "© 2026 Wersee. All rights reserved.",
+  "asar": true,
+  "compression": "maximum",
+  "directories": {
+    "output": "dist-electron-appstore",
+    "buildResources": "electron/assets"
+  },
+  "files": [
+    "electron/**/*",
+    "!electron/assets/icon.icns",
+    "!electron/assets/icon.ico"
+  ],
+  "extraMetadata": {
+    "main": "electron/main-appstore.js"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": [
+          "x64"
+        ]
+      }
+    ],
+    "icon": "electron/assets/icon.ico",
+    "requestedExecutionLevel": "asInvoker",
+    "publisherName": "Wersee",
+    "verifyUpdateCodeSignature": false
+  },
+  "nsis": {
+    "oneClick": false,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": true,
+    "allowElevation": true,
+    "installerIcon": "electron/assets/icon.ico",
+    "uninstallerIcon": "electron/assets/icon.ico",
+    "installerHeaderIcon": "electron/assets/icon.ico",
+    "installerSidebar": "electron/assets/installerSidebar.bmp",
+    "uninstallerSidebar": "electron/assets/installerSidebar.bmp",
+    "installerHeader": "electron/assets/installerHeader.bmp",
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true,
+    "shortcutName": "Wersee App Store",
+    "runAfterFinish": true,
+    "menuCategory": "Wersee",
+    "deleteAppDataOnUninstall": false,
+    "license": "electron/assets/LICENSE.txt",
+    "include": "electron/assets/installer.nsh",
+    "artifactName": "Wersee-AppStore-Installer-${version}.${ext}",
+    "uninstallDisplayName": "Wersee App Store"
+  }
+}
