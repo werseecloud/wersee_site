@@ -23,7 +23,7 @@
       "destination": "https://pkgwzusngqwnmdfpifnd.supabase.co/functions/v1/creator-referral/:path*"
     },
     {
-      "source": "/((?!.*\\..*).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
