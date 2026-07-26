@@ -1,2 +1,0 @@
-import{j as r}from"./vendor-react-KDWfX7Ci.js";import{CreatorRoute as t}from"./CreatorMode-BYE6dffS.js";import"./index-CdzsVKkp.js";import"./app-CDd59S-g.js";import"./vendor-supabase-_AuQRo9U.js";import"./authSessionCleanup-C8dgD5ph.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-ui-DN5QjyiL.js";import"./vendor-utils-Te7z6FL4.js";function f(){return r.jsx(t,{screen:"share-kit"})}export{f as default};
-//# sourceMappingURL=CreatorShareKit-C_W2dWfk.js.map

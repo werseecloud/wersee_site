@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-KDWfX7Ci.js";import{CreatorRoute as t}from"./CreatorMode-BsaVlPQW.js";import"./index-CdzsVKkp.js";import"./app-CypVCOwy.js";import"./vendor-supabase-_AuQRo9U.js";import"./authSessionCleanup-C8dgD5ph.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-ui-DnDi_Nw-.js";import"./vendor-utils-Te7z6FL4.js";function f(){return r.jsx(t,{screen:"revenue"})}export{f as default};
+//# sourceMappingURL=CreatorRevenue-D1tn0R2U.js.map
