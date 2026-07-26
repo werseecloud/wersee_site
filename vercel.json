@@ -7,6 +7,9 @@
   "functions": {
     "api/sites.js": {
       "maxDuration": 300
+    },
+    "api/storage.js": {
+      "maxDuration": 300
     }
   },
   "rewrites": [
@@ -17,6 +20,10 @@
     {
       "source": "/api/sites/:path*",
       "destination": "/api/sites?__sites_path=:path*"
+    },
+    {
+      "source": "/api/storage/:path*",
+      "destination": "/api/storage?__storage_path=:path*"
     },
     {
       "source": "/r/:path*",
