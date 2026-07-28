@@ -1,0 +1,2 @@
+import{j as t}from"./vendor-react-o_MY0PFO.js";import{CreatorRoute as r}from"./CreatorMode-Cjz_aRYm.js";import"./vendor-ui-BZb8IHjw.js";import"./index-CPKKhit-.js";import"./app-Mb72YO56.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-aiJ-s9Nh.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function f(){return t.jsx(r,{screen:"settings"})}export{f as default};
+//# sourceMappingURL=CreatorSettings-xx7gOdUv.js.map

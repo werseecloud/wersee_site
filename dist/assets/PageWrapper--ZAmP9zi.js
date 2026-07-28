@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-o_MY0PFO.js";import{m as a}from"./vendor-ui-BZb8IHjw.js";const l=({children:i,className:t=""})=>r.jsx(a.div,{initial:{opacity:0,y:15,filter:"blur(4px)"},animate:{opacity:1,y:0,filter:"blur(0px)"},exit:{opacity:0,y:-15,filter:"blur(4px)"},transition:{duration:.4,ease:[.22,1,.36,1]},className:`w-full h-full overflow-x-hidden ${t}`,children:i});export{l as P};
+//# sourceMappingURL=PageWrapper--ZAmP9zi.js.map
