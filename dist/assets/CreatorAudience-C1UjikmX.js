@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-B6SpprUF.js";import{CreatorRoute as t}from"./CreatorMode-C3H7VPRI.js";import"./vendor-ui-C8B5_iVV.js";import"./index-CuskgSWS.js";import"./app-BTNDFRl6.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-Ck0zJNQC.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function c(){return r.jsx(t,{screen:"audience"})}export{c as default};
+//# sourceMappingURL=CreatorAudience-C1UjikmX.js.map

@@ -1,2 +1,0 @@
-import{j as r}from"./vendor-react-B6SpprUF.js";import{CreatorRoute as o}from"./CreatorMode-cXQEzArK.js";import"./vendor-ui-C8B5_iVV.js";import"./index-CuskgSWS.js";import"./app-CIk1tKAq.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-Ck0zJNQC.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function f(){return r.jsx(o,{screen:"onboarding"})}export{f as default};
-//# sourceMappingURL=CreatorOnboardingPage-Db-yrEGN.js.map
