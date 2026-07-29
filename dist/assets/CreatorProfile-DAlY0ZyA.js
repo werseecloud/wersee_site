@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-B6SpprUF.js";import{CreatorRoute as o}from"./CreatorMode-By3GACDe.js";import"./vendor-ui-C8B5_iVV.js";import"./index-CuskgSWS.js";import"./app-CZ0eOkl7.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-Ck0zJNQC.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function u(){return r.jsx(o,{screen:"profile"})}export{u as default};
+//# sourceMappingURL=CreatorProfile-DAlY0ZyA.js.map
