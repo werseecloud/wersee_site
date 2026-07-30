@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-B6SpprUF.js";import{CreatorRoute as t}from"./CreatorMode-D2mtIn66.js";import"./vendor-ui-C8B5_iVV.js";import"./index-CuskgSWS.js";import"./app-D-rkqAH7.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-Ck0zJNQC.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function f(){return r.jsx(t,{screen:"payouts"})}export{f as default};
+//# sourceMappingURL=CreatorPayouts-h-2LByzx.js.map
