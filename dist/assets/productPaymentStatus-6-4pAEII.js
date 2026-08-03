@@ -1,0 +1,2 @@
+const n=e=>{switch(e==null?void 0:e.toLowerCase()){case"success":case"succeeded":case"paid":return"success";case"processing":case"pending":return"processing";case"failed":case"payment_failed":return"failed";case"cancelled":case"canceled":case"abandoned":case"incomplete":return"cancelled";case"error":return"error";default:return null}},a=(e,c,s)=>{if(s)return"processing";const r=n(e);return r||(c==="succeeded"?"success":c==="processing"?"processing":c==="failed"?"cancelled":"error")};export{a as i,n};
+//# sourceMappingURL=productPaymentStatus-6-4pAEII.js.map

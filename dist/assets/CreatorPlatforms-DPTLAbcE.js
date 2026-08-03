@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-B3u6ZMOG.js";import{CreatorRoute as t}from"./CreatorMode-TcqM-YBl.js";import"./vendor-ui-RTM_eB_D.js";import"./index-sjyKcKYt.js";import"./app-DV6oRRDb.js";import"./vendor-supabase-DsaUgBUZ.js";import"./authSessionCleanup-CBuJApP2.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-utils-NQl6BVH0.js";function u(){return r.jsx(t,{screen:"platforms"})}export{u as default};
+//# sourceMappingURL=CreatorPlatforms-DPTLAbcE.js.map

@@ -1,0 +1,2 @@
+import{werseeAi as c}from"./client-BSRP9pWv.js";class o{async generateContent(e){return c.generateText({contents:e.contents,config:e.config})}async generateContentStream(e){const n=await this.generateContent(e);return(async function*(){for(let t=0;t<n.text.length;t+=120)yield{text:n.text.slice(t,t+120)}})()}}class i{constructor(){this.models=new o}}const E={ARRAY:"ARRAY",STRING:"STRING",OBJECT:"OBJECT",INTEGER:"INTEGER",NUMBER:"NUMBER",BOOLEAN:"BOOLEAN"},r=new i,R=()=>r;export{E as T,R as g};
+//# sourceMappingURL=geminiClient-1Ejoltsk.js.map
