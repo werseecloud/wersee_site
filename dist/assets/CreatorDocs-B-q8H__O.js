@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-DBhdvQDh.js";import{CreatorRoute as o}from"./CreatorMode-DiPcFDTN.js";import"./index-B2LB0af1.js";import"./app-C-9FLmQk.js";import"./vendor-supabase-_AuQRo9U.js";import"./authSessionCleanup-CJDXKYCh.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-ui-DoDq3wEm.js";import"./vendor-utils-Te7z6FL4.js";function c(){return r.jsx(o,{screen:"docs"})}export{c as default};
+//# sourceMappingURL=CreatorDocs-B-q8H__O.js.map
