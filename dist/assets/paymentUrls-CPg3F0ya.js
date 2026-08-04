@@ -1,2 +1,1 @@
 const s="https://pay.wersee.com",r=(t,o)=>{const e=String(t??"").trim().replace(/^@/,""),n=[...e].some(a=>a.charCodeAt(0)<32);if(!e||n||/[/\\?#]/.test(e))throw new Error(`Invalid ${o}.`);return encodeURIComponent(e)},c={quickPay({username:t,slug:o,sandbox:e=!1}){const n=`/${r(t,"username")}/quick-pay/${r(o,"payment slug")}`;return`${s}${e?`/s${n}`:n}`},invoice({username:t,invoiceId:o,sandbox:e=!1}){const n=`/pay/invoice/${r(t,"username")}/${r(o,"invoice ID")}`;return`${s}${e?`/sandbox${n}`:n}`}};export{c as w};
-//# sourceMappingURL=paymentUrls-CPg3F0ya.js.map

@@ -1,2 +1,0 @@
-import{j as r}from"./vendor-react-DBhdvQDh.js";import{CreatorRoute as t}from"./CreatorMode-Bl2t-cAe.js";import"./index-B2LB0af1.js";import"./app-CosYRf23.js";import"./vendor-supabase-_AuQRo9U.js";import"./authSessionCleanup-CJDXKYCh.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-ui-DoDq3wEm.js";import"./vendor-utils-Te7z6FL4.js";function f(){return r.jsx(t,{screen:"invites"})}export{f as default};
-//# sourceMappingURL=CreatorInvites-BXQJKCxo.js.map
