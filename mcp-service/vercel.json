@@ -1,0 +1,39 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "functions": {
+    "api/mcp.js": {
+      "maxDuration": 300
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/.well-known/oauth-protected-resource",
+      "destination": "/api/mcp?__mcp_path=.well-known/oauth-protected-resource"
+    },
+    {
+      "source": "/v1",
+      "destination": "/api/mcp?__mcp_path=v1"
+    },
+    {
+      "source": "/",
+      "destination": "/api/mcp?__mcp_path=status"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/api/mcp?__mcp_path=not-found"
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+-- Private, user-owned MCP configuration for Wersee's OAuth 2.1 resource server.
+-- OAuth identifies the caller; these tables apply the finer-grained business
+-- and capability boundary that Supabase's standard OAuth scopes cannot express.
+
+create table if not exists public.mcp_servers (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  business_id uuid references public.businesses(id) on delete set null,
+  name text not null default 'My Wersee MCP',
+  status text not null default 'active',
+  capabilities text[] not null default array[
+    'payments', 'listings', 'messages', 'management', 'storage', 'development', 'analytics'
+  ]::text[],
+  instructions text not null default '',
+  last_used_at timestamptz,
+  disabled_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  constraint mcp_servers_one_per_user unique (user_id),
+  constraint mcp_servers_name_length check (char_length(btrim(name)) between 2 and 80),
+  constraint mcp_servers_status_check check (status in ('active', 'disabled')),
+  constraint mcp_servers_instructions_length check (char_length(instructions) <= 4000),
+  constraint mcp_servers_capabilities_check check (
+    capabilities <@ array[
+      'payments', 'listings', 'messages', 'management', 'storage', 'development', 'analytics'
+    ]::text[]
+    and cardinality(capabilities) > 0
+  )
+);
+
+create index if not exists mcp_servers_business_idx on public.mcp_servers (business_id);
+create index if not exists mcp_servers_active_idx on public.mcp_servers (user_id) where status = 'active';
+
+drop trigger if exists mcp_servers_touch_updated on public.mcp_servers;
+create trigger mcp_servers_touch_updated
+before update on public.mcp_servers
+for each row execute function private.touch_updated_at();
+
+alter table public.mcp_servers enable row level security;
+
+drop policy if exists "Users read their MCP server" on public.mcp_servers;
+create policy "Users read their MCP server"
+on public.mcp_servers for select to authenticated
+using (auth.uid() = user_id);
+
+drop policy if exists "Users create their MCP server" on public.mcp_servers;
+create policy "Users create their MCP server"
+on public.mcp_servers for insert to authenticated
+with check (
+  auth.uid() = user_id
+  and (
+    business_id is null
+    or exists (
+      select 1 from public.businesses business
+      where business.id = mcp_servers.business_id and business.user_id = auth.uid()
+    )
+    or exists (
+      select 1 from public.team_members member
+      where member.business_id = mcp_servers.business_id
+        and member.user_id = auth.uid()
+        and member.status in ('active', 'accepted', 'joined')
+    )
+  )
+);
+
+drop policy if exists "Users update their MCP server" on public.mcp_servers;
+create policy "Users update their MCP server"
+on public.mcp_servers for update to authenticated
+using (auth.uid() = user_id)
+with check (
+  auth.uid() = user_id
+  and (
+    business_id is null
+    or exists (
+      select 1 from public.businesses business
+      where business.id = mcp_servers.business_id and business.user_id = auth.uid()
+    )
+    or exists (
+      select 1 from public.team_members member
+      where member.business_id = mcp_servers.business_id
+        and member.user_id = auth.uid()
+        and member.status in ('active', 'accepted', 'joined')
+    )
+  )
+);
+
+drop policy if exists "Users delete their MCP server" on public.mcp_servers;
+create policy "Users delete their MCP server"
+on public.mcp_servers for delete to authenticated
+using (auth.uid() = user_id);
+
+create table if not exists public.mcp_pending_actions (
+  id uuid primary key default gen_random_uuid(),
+  server_id uuid not null references public.mcp_servers(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  business_id uuid references public.businesses(id) on delete set null,
+  tool_name text not null,
+  arguments_hash text not null,
+  preview jsonb not null default '{}'::jsonb,
+  expires_at timestamptz not null default (now() + interval '10 minutes'),
+  consumed_at timestamptz,
+  created_at timestamptz not null default now(),
+  constraint mcp_pending_actions_tool_length check (char_length(tool_name) between 1 and 160),
+  constraint mcp_pending_actions_hash_length check (char_length(arguments_hash) = 64)
+);
+
+create index if not exists mcp_pending_actions_lookup_idx
+  on public.mcp_pending_actions (server_id, user_id, expires_at desc)
+  where consumed_at is null;
+
+alter table public.mcp_pending_actions enable row level security;
+
+drop policy if exists "Users read their pending MCP actions" on public.mcp_pending_actions;
+create policy "Users read their pending MCP actions"
+on public.mcp_pending_actions for select to authenticated
+using (auth.uid() = user_id);
+
+create table if not exists public.mcp_tool_audit_logs (
+  id bigint generated by default as identity primary key,
+  server_id uuid not null references public.mcp_servers(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  business_id uuid references public.businesses(id) on delete set null,
+  oauth_client_id text not null,
+  tool_name text not null,
+  capability text not null,
+  risk_level text not null,
+  status text not null,
+  request_id text not null,
+  input_summary jsonb not null default '{}'::jsonb,
+  result_summary jsonb not null default '{}'::jsonb,
+  error_code text,
+  created_at timestamptz not null default now(),
+  constraint mcp_tool_audit_risk_check check (risk_level in ('read', 'low', 'medium', 'high')),
+  constraint mcp_tool_audit_status_check check (status in ('previewed', 'completed', 'failed', 'denied'))
+);
+
+create index if not exists mcp_tool_audit_user_created_idx
+  on public.mcp_tool_audit_logs (user_id, created_at desc);
+create index if not exists mcp_tool_audit_server_created_idx
+  on public.mcp_tool_audit_logs (server_id, created_at desc);
+
+alter table public.mcp_tool_audit_logs enable row level security;
+
+drop policy if exists "Users read their MCP audit history" on public.mcp_tool_audit_logs;
+create policy "Users read their MCP audit history"
+on public.mcp_tool_audit_logs for select to authenticated
+using (auth.uid() = user_id);
+
+revoke all on table public.mcp_servers, public.mcp_pending_actions, public.mcp_tool_audit_logs from anon;
+revoke all on table public.mcp_pending_actions, public.mcp_tool_audit_logs from authenticated;
+grant select, insert, update, delete on table public.mcp_servers to authenticated;
+grant select on table public.mcp_pending_actions, public.mcp_tool_audit_logs to authenticated;
+grant usage, select on sequence public.mcp_tool_audit_logs_id_seq to service_role;
+grant all on table public.mcp_servers, public.mcp_pending_actions, public.mcp_tool_audit_logs to service_role;
+
+comment on table public.mcp_servers is 'User-owned configuration and capability allowlist for the Wersee MCP resource server.';
+comment on table public.mcp_pending_actions is 'Short-lived, one-time confirmations for MCP mutations, bound to exact arguments.';
+comment on table public.mcp_tool_audit_logs is 'Sanitized MCP tool activity visible to the owning user; secrets and raw content are excluded.';

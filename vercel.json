@@ -1,13 +1,242 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "",
-  "buildCommand": null,
+  "framework": "vite",
+  "installCommand": "npm install --legacy-peer-deps",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/pay/invoice/:username/:invoiceId",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/pay/invoice/:username/:invoiceId",
+      "permanent": true
+    },
+    {
+      "source": "/sandbox/pay/invoice/:username/:invoiceId",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/sandbox/pay/invoice/:username/:invoiceId",
+      "permanent": true
+    },
+    {
+      "source": "/quick-pay/invoice/:invoiceNumber",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/quick-pay/invoice/:invoiceNumber",
+      "permanent": true
+    },
+    {
+      "source": "/:username/quick-pay/invoice/:invoiceSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/:username/quick-pay/invoice/:invoiceSlug",
+      "permanent": true
+    },
+    {
+      "source": "/:username/quick-pay/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/:username/quick-pay/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/quick-pay/:username/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/quick-pay/:username/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/s/:username/quick-pay/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/s/:username/quick-pay/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/sandbox/:username/quick-pay/:paymentSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/sandbox/:username/quick-pay/:paymentSlug",
+      "permanent": true
+    },
+    {
+      "source": "/:username/invoice/:invoiceSlug",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?:www\\.)?wersee\\.com"
+        }
+      ],
+      "destination": "https://pay.wersee.com/:username/invoice/:invoiceSlug",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "wersee.com"
+        }
+      ],
+      "destination": "https://www.wersee.com/:path*",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/((?!auth/front-channel-logout(?:/|$)).*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "frame-ancestors 'self' https://wersee.com https://www.wersee.com"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!.*\\..*).*)",
+      "source": "/.well-known/oauth-protected-resource",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcp.wersee.com"
+        }
+      ],
+      "destination": "/api/mcp?__mcp_path=.well-known/oauth-protected-resource"
+    },
+    {
+      "source": "/v1",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcp.wersee.com"
+        }
+      ],
+      "destination": "/api/mcp?__mcp_path=v1"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcp.wersee.com"
+        }
+      ],
+      "destination": "/api/mcp?__mcp_path=status"
+    },
+    {
+      "source": "/:mcpPath*",
+      "has": [
+        {
+          "type": "host",
+          "value": "mcp.wersee.com"
+        }
+      ],
+      "destination": "/api/mcp?__mcp_path=not-found"
+    },
+    {
+      "source": "/auth/front-channel-logout",
+      "destination": "/api/auth/front-channel-logout"
+    },
+    {
+      "source": "/api/site-events",
+      "destination": "/api/sites?__sites_path=__events"
+    },
+    {
+      "source": "/api/sites/:path*",
+      "destination": "/api/sites?__sites_path=:path*"
+    },
+    {
+      "source": "/api/storage/:path*",
+      "destination": "/api/storage?__storage_path=:path*"
+    },
+    {
+      "source": "/api/storefront-import/:path*",
+      "destination": "/api/storefront-import?__storefront_path=:path*"
+    },
+    {
+      "source": "/api/v1/:path*",
+      "destination": "/api/strato?__strato_path=:path*"
+    },
+    {
+      "source": "/api",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/r/:path*",
+      "destination": "https://pkgwzusngqwnmdfpifnd.supabase.co/functions/v1/creator-referral/:path*"
+    },
+    {
+      "source": "/eula",
+      "destination": "/eula/index.html"
+    },
+    {
+      "source": "/eula/",
+      "destination": "/eula/index.html"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/sites/maintenance/cleanup",
+      "schedule": "17 3 * * *"
     }
   ]
 }

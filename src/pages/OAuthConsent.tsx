@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
-import { Loader2, Shield, AlertCircle, CheckCircle } from 'lucide-react';
+import { Loader2, Shield, AlertCircle, CheckCircle, ChevronRight } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 type AuthorizationDetailsResponse = Awaited<
@@ -29,6 +29,7 @@ export const OAuthConsent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [processing, setProcessing] = useState(false);
+  const [signInPath, setSignInPath] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -43,12 +44,19 @@ export const OAuthConsent = () => {
       }
 
       try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (!sessionData.session) {
+          const consentPath = `/oauth/consent?authorization_id=${encodeURIComponent(authorizationId)}`;
+          if (!cancelled) setSignInPath(`/auth?redirect=${encodeURIComponent(consentPath)}`);
+          return;
+        }
+
         const { data: userData, error: userError } = await supabase.auth.getUser();
         if (userError) throw userError;
 
         if (!userData.user) {
           const consentPath = `/oauth/consent?authorization_id=${encodeURIComponent(authorizationId)}`;
-          navigate(`/auth?redirect=${encodeURIComponent(consentPath)}`, { replace: true });
+          if (!cancelled) setSignInPath(`/auth?redirect=${encodeURIComponent(consentPath)}`);
           return;
         }
 
@@ -155,6 +163,36 @@ export const OAuthConsent = () => {
     );
   }
 
+  if (signInPath) {
+    return (
+      <>
+        <SEO title="Connect account" noIndex />
+        <div className="min-h-screen flex items-center justify-center bg-[#F5F5F7] p-4">
+          <div className="bg-white rounded-[2.5rem] shadow-2xl p-8 md:p-10 max-w-md w-full text-center">
+            <div className="w-16 h-16 bg-[#1D1D1F] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600 mb-3">Wersee OAuth</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-[#1D1D1F] mb-3">Continue with Wersee account</h1>
+            <p className="text-gray-500 text-sm leading-6 mb-8">
+              Sign in to choose exactly what ChatGPT or another MCP client may use. Your Wersee password is never shared with the client.
+            </p>
+            <button
+              onClick={() => navigate(signInPath)}
+              className="w-full py-4 bg-[#1D1D1F] text-white rounded-2xl font-bold hover:bg-black/90 transition-all active:scale-[0.98] flex items-center justify-center gap-2"
+            >
+              Continue with Wersee account
+              <ChevronRight className="w-5 h-5" />
+            </button>
+            <button onClick={() => navigate('/')} className="mt-4 text-sm font-semibold text-gray-500 hover:text-gray-800 transition-colors">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   if (!authDetails) return null;
 
   return (
@@ -168,8 +206,8 @@ export const OAuthConsent = () => {
             <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/20">
               <Shield className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-2xl font-bold mb-1">Authorize Application</h1>
-            <p className="text-white/60 text-sm">Sign in with Wersee</p>
+            <h1 className="text-2xl font-bold mb-1">Continue with Wersee account</h1>
+            <p className="text-white/60 text-sm">Connect your account securely with Wersee OAuth</p>
           </div>
           
           {/* Decorative background */}
@@ -212,7 +250,7 @@ export const OAuthConsent = () => {
               disabled={processing}
               className="w-full py-4 bg-[#1D1D1F] text-white rounded-2xl font-bold hover:bg-black/90 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {processing ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Authorize Access'}
+              {processing ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Continue with Wersee account'}
             </button>
             <button 
               onClick={handleDeny}
