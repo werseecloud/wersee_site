@@ -1,7 +1,7 @@
 project_id = "pkgwzusngqwnmdfpifnd"
 
 [auth]
-site_url = "https://wersee.com"
+site_url = "https://www.wersee.com"
 
 [auth.oauth_server]
 enabled = true
