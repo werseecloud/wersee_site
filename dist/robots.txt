@@ -17,6 +17,10 @@ Disallow: /setup-account
 Disallow: /upload-mobile/
 Disallow: /admin/
 Disallow: /oauth/
+Disallow: /app
+Disallow: /settings
+Disallow: /shared/
+Disallow: /auth/
 Disallow: /verify
 Disallow: /logged-out
 Disallow: /payment-success
