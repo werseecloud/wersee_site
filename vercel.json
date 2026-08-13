@@ -32,6 +32,14 @@
   ],
   "rewrites": [
     {
+      "source": "/auth/handoff",
+      "destination": "/auth-handoff.html"
+    },
+    {
+      "source": "/auth/begin",
+      "destination": "/auth-bootstrap.html"
+    },
+    {
       "source": "/api/site-events",
       "destination": "/api/sites?__sites_path=__events"
     },

@@ -24,6 +24,7 @@
       <p id="message">One moment while Wersee safely returns you to the correct page.</p>
       <a id="retry" href="/auth/begin">Try again</a>
     </main>
+    <script src="/assets/auth-handoff-retry.js"></script>
     <script>
       (() => {
         const SUPABASE_URL = 'https://pkgwzusngqwnmdfpifnd.supabase.co'.replace(/\/+$/, '');
@@ -31,11 +32,8 @@
         const CLIENT_ID = '076d20ee-48c7-4d83-abc5-eeb3167acf48';
         const HANDOFF_KEY = 'wersee:first-party-auth-handoff';
         const AUTH_STORAGE_KEY = 'sb-pkgwzusngqwnmdfpifnd-auth-token';
-        const trustedHosts = new Set(['wersee.com', 'www.wersee.com', 'app.wersee.com', 'billing.wersee.com', 'blog.wersee.com', 'cloud.wersee.com', 'community.wersee.com', 'chat.wersee.com', 'gate.wersee.com', 'docs.wersee.com', 'email.wersee.com', 'files.wersee.com', 'mail.wersee.com', 'pay.wersee.com']);
-        let retryReturnUrl = `${location.origin}/`;
+        const trustedHosts = new Set(['wersee.com', 'www.wersee.com', 'app.wersee.com', 'ai.wersee.com', 'billing.wersee.com', 'blog.wersee.com', 'cloud.wersee.com', 'community.wersee.com', 'chat.wersee.com', 'gate.wersee.com', 'docs.wersee.com', 'email.wersee.com', 'files.wersee.com', 'mail.wersee.com', 'pay.wersee.com']);
         const fail = (message) => {
-          const returnUrl = safeReturnUrl(retryReturnUrl) || `${location.origin}/`;
-          document.querySelector('#retry').href = `/auth/begin?returnUrl=${encodeURIComponent(returnUrl)}`;
           document.body.classList.add('error');
           document.querySelector('h1').textContent = 'We could not finish signing you in';
           document.querySelector('#message').textContent = message;
@@ -51,13 +49,12 @@
         void (async () => {
           try {
             const params = new URLSearchParams(location.search);
-            const raw = sessionStorage.getItem(HANDOFF_KEY);
-            const record = raw ? JSON.parse(raw) : null;
-            retryReturnUrl = record && typeof record.returnUrl === 'string' ? record.returnUrl : retryReturnUrl;
             const oauthError = params.get('error_description') || params.get('error');
             if (oauthError) throw new Error(oauthError);
             const code = params.get('code');
             const state = params.get('state');
+            const raw = sessionStorage.getItem(HANDOFF_KEY);
+            const record = raw ? JSON.parse(raw) : null;
             if (!record || !code || !validPkce(state) || state !== record.state || !validPkce(record.codeVerifier, 43) || Date.now() - Number(record.createdAt) > 600000) {
               throw new Error('This secure sign-in handoff is invalid or has expired.');
             }
