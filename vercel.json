@@ -17,6 +17,23 @@
   },
   "headers": [
     {
+      "source": "/auth/handoff",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "max-age=0"
+        },
+        {
+          "key": "x-vercel-enable-rewrite-caching",
+          "value": "0"
+        }
+      ]
+    },
+    {
       "source": "/api/storage/(.*)",
       "headers": [
         {
