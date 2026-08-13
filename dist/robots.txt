@@ -56,3 +56,4 @@ Crawl-delay: 2
 
 # ── Sitemap ───────────────────────────────────────────────────────
 Sitemap: https://www.wersee.com/sitemap.xml
+Sitemap: https://blog.wersee.com/sitemap-blog.xml

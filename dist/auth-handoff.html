@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>Completing sign in | Wersee</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: #050505; color: #fff; padding: 24px; }
+      main { width: min(100%, 430px); padding: 34px; text-align: center; border: 1px solid rgba(255,255,255,.1); border-radius: 32px; background: rgba(255,255,255,.035); box-shadow: 0 28px 80px rgba(0,0,0,.5); }
+      .mark { width: 64px; height: 64px; margin: 0 auto 22px; display: grid; place-items: center; border-radius: 20px; background: rgba(99,102,241,.16); border: 1px solid rgba(165,180,252,.2); font-size: 26px; }
+      h1 { margin: 0; font-size: 26px; letter-spacing: -.03em; }
+      p { color: rgba(255,255,255,.56); line-height: 1.65; font-size: 14px; }
+      a { display: none; margin-top: 22px; padding: 12px 20px; border-radius: 999px; background: #fff; color: #050505; font-weight: 750; text-decoration: none; }
+      body.error a { display: inline-flex; }
+    </style>
+  </head>
+  <body>
+    <main role="status" aria-live="polite">
+      <div class="mark" aria-hidden="true">W</div>
+      <h1>Securing your Wersee session</h1>
+      <p id="message">One moment while Wersee safely returns you to the correct page.</p>
+      <a href="https://id.wersee.com/auth">Try again</a>
+    </main>
+    <script>
+      (() => {
+        const SUPABASE_URL = 'https://pkgwzusngqwnmdfpifnd.supabase.co'.replace(/\/+$/, '');
+        const PUBLISHABLE_KEY = 'sb_publishable_jWHZopAhx_yGQu0nIXsgMg_YeNK6LVY';
+        const CLIENT_ID = '076d20ee-48c7-4d83-abc5-eeb3167acf48';
+        const HANDOFF_KEY = 'wersee:first-party-auth-handoff';
+        const AUTH_STORAGE_KEY = 'sb-pkgwzusngqwnmdfpifnd-auth-token';
+        const trustedHosts = new Set(['wersee.com', 'www.wersee.com', 'app.wersee.com', 'billing.wersee.com', 'cloud.wersee.com', 'community.wersee.com', 'chat.wersee.com', 'gate.wersee.com', 'docs.wersee.com', 'email.wersee.com', 'files.wersee.com', 'mail.wersee.com', 'pay.wersee.com']);
+        const fail = (message) => {
+          document.body.classList.add('error');
+          document.querySelector('h1').textContent = 'We could not finish signing you in';
+          document.querySelector('#message').textContent = message;
+        };
+        const safeReturnUrl = (value) => {
+          try {
+            const url = new URL(value, 'https://www.wersee.com');
+            if (url.protocol !== 'https:' || !trustedHosts.has(url.hostname.toLowerCase())) return null;
+            return url.toString();
+          } catch { return null; }
+        };
+        const validPkce = (value, minimum = 32) => typeof value === 'string' && value.length >= minimum && value.length <= 128 && /^[A-Za-z0-9_-]+$/.test(value);
+        void (async () => {
+          try {
+            const params = new URLSearchParams(location.search);
+            const oauthError = params.get('error_description') || params.get('error');
+            if (oauthError) throw new Error(oauthError);
+            const code = params.get('code');
+            const state = params.get('state');
+            const raw = sessionStorage.getItem(HANDOFF_KEY);
+            const record = raw ? JSON.parse(raw) : null;
+            if (!record || !code || !validPkce(state) || state !== record.state || !validPkce(record.codeVerifier, 43) || Date.now() - Number(record.createdAt) > 600000) {
+              throw new Error('This secure sign-in handoff is invalid or has expired.');
+            }
+            const returnUrl = safeReturnUrl(record.returnUrl);
+            if (!returnUrl) throw new Error('The requested Wersee return address is not allowed.');
+            if (record.redirectUri !== `${location.origin}/auth/handoff`) throw new Error('The secure return address does not match this Wersee service.');
+            const tokenResponse = await fetch(`${SUPABASE_URL}/auth/v1/oauth/token`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                grant_type: 'authorization_code', code, client_id: CLIENT_ID,
+                redirect_uri: record.redirectUri, code_verifier: record.codeVerifier,
+              }),
+            });
+            const tokens = await tokenResponse.json();
+            if (!tokenResponse.ok || !tokens.access_token || !tokens.refresh_token) {
+              throw new Error(tokens.error_description || tokens.error || 'Wersee could not exchange the sign-in code.');
+            }
+            const userResponse = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+              headers: { Authorization: `Bearer ${tokens.access_token}`, apikey: PUBLISHABLE_KEY },
+            });
+            const user = await userResponse.json();
+            if (!userResponse.ok || !user.id) throw new Error('Wersee could not validate the signed-in account.');
+            const session = {
+              ...tokens,
+              expires_at: tokens.expires_at || Math.floor(Date.now() / 1000) + Number(tokens.expires_in || 3600),
+              user,
+            };
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(session));
+            sessionStorage.removeItem(HANDOFF_KEY);
+            history.replaceState(null, '', '/auth/handoff');
+            location.replace(returnUrl);
+          } catch (error) {
+            sessionStorage.removeItem(HANDOFF_KEY);
+            history.replaceState(null, '', '/auth/handoff');
+            fail(error instanceof Error ? error.message : 'Wersee could not complete sign in.');
+          }
+        })();
+      })();
+    </script>
+  </body>
+</html>

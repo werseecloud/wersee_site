@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <title>Opening secure sign in | Wersee</title>
+    <style>
+      :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+      * { box-sizing: border-box; }
+      body { margin: 0; min-height: 100dvh; display: grid; place-items: center; background: #050505; color: #fff; padding: 24px; }
+      main { width: min(100%, 430px); padding: 34px; text-align: center; border: 1px solid rgba(255,255,255,.1); border-radius: 32px; background: rgba(255,255,255,.035); box-shadow: 0 28px 80px rgba(0,0,0,.5); }
+      .mark { width: 64px; height: 64px; margin: 0 auto 22px; display: grid; place-items: center; border-radius: 20px; background: rgba(99,102,241,.16); border: 1px solid rgba(165,180,252,.2); font-size: 26px; }
+      h1 { margin: 0; font-size: 26px; letter-spacing: -.03em; }
+      p { color: rgba(255,255,255,.56); line-height: 1.65; font-size: 14px; }
+      a { display: none; margin-top: 22px; padding: 12px 20px; border-radius: 999px; background: #fff; color: #050505; font-weight: 750; text-decoration: none; }
+      body.error a { display: inline-flex; }
+    </style>
+  </head>
+  <body>
+    <main role="status" aria-live="polite">
+      <div class="mark" aria-hidden="true">W</div>
+      <h1>Opening secure Wersee sign in</h1>
+      <p id="message">One moment while Wersee connects you to the protected account domain.</p>
+      <a href="https://id.wersee.com/auth">Continue to sign in</a>
+    </main>
+    <script>
+      (() => {
+        const HANDOFF_KEY = 'wersee:first-party-auth-handoff';
+        const trustedHosts = new Set(['wersee.com', 'www.wersee.com', 'app.wersee.com', 'id.wersee.com', 'auth.wersee.com', 'billing.wersee.com', 'cloud.wersee.com', 'community.wersee.com', 'chat.wersee.com', 'gate.wersee.com', 'docs.wersee.com', 'email.wersee.com', 'files.wersee.com', 'mail.wersee.com', 'pay.wersee.com']);
+        const fail = (message) => {
+          document.body.classList.add('error');
+          document.querySelector('h1').textContent = 'Secure sign in could not start';
+          document.querySelector('#message').textContent = message;
+        };
+        const encode = (bytes) => {
+          let value = '';
+          bytes.forEach((byte) => { value += String.fromCharCode(byte); });
+          return btoa(value).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+        };
+        const random = (length) => {
+          const bytes = new Uint8Array(length);
+          crypto.getRandomValues(bytes);
+          return encode(bytes);
+        };
+        const safeReturnUrl = (raw) => {
+          try {
+            const url = new URL(raw || '/workspace', 'https://www.wersee.com');
+            if (url.protocol !== 'https:' || !trustedHosts.has(url.hostname.toLowerCase()) || ['id.wersee.com', 'auth.wersee.com'].includes(url.hostname.toLowerCase())) return 'https://www.wersee.com/workspace';
+            return url.toString();
+          } catch { return 'https://www.wersee.com/workspace'; }
+        };
+        void (async () => {
+          try {
+            const source = new URLSearchParams(location.search);
+            const returnUrl = safeReturnUrl(source.get('returnUrl') || source.get('returnTo') || source.get('redirect'));
+            const verifier = random(64);
+            const state = random(32);
+            const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+            const redirectUri = `${location.origin}/auth/handoff`;
+            sessionStorage.setItem(HANDOFF_KEY, JSON.stringify({ codeVerifier: verifier, createdAt: Date.now(), redirectUri, returnUrl, state }));
+            const path = source.get('authPath') || (location.pathname === '/auth/begin' ? '/auth' : location.pathname);
+            source.delete('authPath');
+            source.delete('redirect');
+            source.delete('returnTo');
+            source.set('returnUrl', returnUrl);
+            source.set('handoff', '1');
+            source.set('handoff_state', state);
+            source.set('code_challenge', encode(new Uint8Array(digest)));
+            source.set('handoff_redirect', redirectUri);
+            location.replace(`https://id.wersee.com${path}?${source.toString()}`);
+          } catch (error) {
+            fail(error instanceof Error ? error.message : 'Wersee could not start secure sign in.');
+          }
+        })();
+      })();
+    </script>
+  </body>
+</html>

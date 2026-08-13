@@ -1,2 +1,2 @@
-import{s as a,e as t}from"./authSessionCleanup-BiS47bzU.js";import"./vendor-supabase-_AuQRo9U.js";(async()=>{try{await a.auth.signOut({scope:"local"})}catch{}finally{t()}})();
+import{s as a,f as t}from"./authSessionCleanup-VT565c7g.js";import"./vendor-runtime-ckwbz45p.js";import"./vendor-supabase-D_w519td.js";(async()=>{try{await a.auth.signOut({scope:"local"})}catch{}finally{t()}})();
 //# sourceMappingURL=front-channel-logout.js.map
