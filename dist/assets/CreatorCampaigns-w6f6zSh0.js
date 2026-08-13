@@ -1,2 +1,0 @@
-import{j as r}from"./vendor-react-DdbC3wmV.js";import{CreatorRoute as t}from"./CreatorMode-BnD89ItG.js";import"./vendor-ui-CtM-44DF.js";import"./index-DuGk_J7z.js";import"./main-DzOUYJus.js";import"./vendor-supabase-D_w519td.js";import"./authSessionCleanup-BoD085zr.js";import"./vendor-runtime-ckwbz45p.js";import"./privateProfile-Cr64Hp2W.js";import"./vendor-utils-D3xeFc3q.js";function x(){return r.jsx(t,{screen:"campaigns"})}export{x as default};
-//# sourceMappingURL=CreatorCampaigns-w6f6zSh0.js.map

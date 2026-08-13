@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-DdbC3wmV.js";import{CreatorRoute as o}from"./CreatorMode-D5m1goik.js";import"./vendor-ui-CtM-44DF.js";import"./index-DuGk_J7z.js";import"./main-ROkFdq0s.js";import"./vendor-supabase-D_w519td.js";import"./authSessionCleanup-CfUzEKru.js";import"./vendor-runtime-ckwbz45p.js";import"./privateProfile-YIZGAwAQ.js";import"./vendor-utils-D3xeFc3q.js";function x(){return r.jsx(o,{screen:"onboarding"})}export{x as default};
+//# sourceMappingURL=CreatorOnboardingPage-DKL5H2Un.js.map
