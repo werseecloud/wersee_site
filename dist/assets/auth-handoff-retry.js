@@ -4,14 +4,14 @@
     'billing.wersee.com', 'blog.wersee.com', 'cloud.wersee.com',
     'community.wersee.com', 'chat.wersee.com', 'gate.wersee.com',
     'docs.wersee.com', 'email.wersee.com', 'files.wersee.com',
-    'mail.wersee.com', 'pay.wersee.com',
+    'mail.wersee.com', 'pay.wersee.com', 'lp.wersee.com',
   ]);
   const safeReturnUrl = (value) => {
     try {
       const url = new URL(value || `${location.origin}/`);
-      return url.protocol === 'https:' && trustedHosts.has(url.hostname.toLowerCase())
-        ? url.toString()
-        : `${location.origin}/`;
+      const hostname = url.hostname.toLowerCase();
+      if (url.protocol !== 'https:' || !trustedHosts.has(hostname)) return `${location.origin}/`;
+      return hostname === 'lp.wersee.com' ? 'https://www.wersee.com/' : url.toString();
     } catch {
       return `${location.origin}/`;
     }
