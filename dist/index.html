@@ -98,15 +98,15 @@
         }
       }
     </script>
-    <script type="module" crossorigin src="/assets/vendor-react-DdbC3wmV.js"></script>
+    <script type="module" crossorigin src="/assets/vendor-react-B9Ykv9Zt.js"></script>
     <script type="module" crossorigin src="/assets/vendor-supabase-D_w519td.js"></script>
     <script type="module" crossorigin src="/assets/vendor-runtime-ckwbz45p.js"></script>
-    <script type="module" crossorigin src="/assets/authSessionCleanup-CfUzEKru.js"></script>
-    <script type="module" crossorigin src="/assets/vendor-ui-DzqgKtVY.js"></script>
-    <script type="module" crossorigin src="/assets/privateProfile-YIZGAwAQ.js"></script>
+    <script type="module" crossorigin src="/assets/authSessionCleanup-P6MUfmzP.js"></script>
+    <script type="module" crossorigin src="/assets/vendor-ui-BZDm61cC.js"></script>
+    <script type="module" crossorigin src="/assets/privateProfile-C0hHRPuF.js"></script>
     <script type="module" crossorigin src="/assets/vendor-utils-D3xeFc3q.js"></script>
-    <script type="module" crossorigin src="/assets/main-x7VYMrEN.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-DTkGRg2e.css">
+    <script type="module" crossorigin src="/assets/main-TjAJlpty.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-CPSbQ_Y8.css">
   </head>
   <body>
     <div id="root">
@@ -117,6 +117,23 @@
         <p style="margin-top:36px"><a href="/search" style="display:inline-block;margin:6px;padding:14px 22px;border-radius:14px;background:#fff;color:#000;font-weight:700;text-decoration:none">Search marketplace</a> <a href="/sell" style="display:inline-block;margin:6px;padding:14px 22px;border:1px solid #333;border-radius:14px;color:#fff;font-weight:700;text-decoration:none">Sell on Wersee</a></p>
       </main>
     </div>
+    <script>
+      // Keep the identity surface useful while the application bundle is
+      // downloading or recovering from a stale mobile browser cache.
+      if (location.hostname === 'id.wersee.com' || location.hostname === 'id.wersee.localhost') {
+        document.documentElement.style.background = '#060608';
+        document.getElementById('root').innerHTML = `
+          <main role="status" aria-live="polite" style="min-height:100dvh;display:grid;place-items:center;background:#060608;color:#fff;font-family:Inter,ui-sans-serif,system-ui,sans-serif;padding:24px;text-align:center">
+            <section style="width:min(100%,384px);padding:32px;border:1px solid rgba(255,255,255,.1);border-radius:28px;background:rgba(255,255,255,.055);box-shadow:0 30px 100px rgba(0,0,0,.42)">
+              <div style="width:56px;height:56px;margin:0 auto;display:grid;place-items:center;border-radius:18px;background:#fff;color:#000;font-size:18px;font-weight:900">W</div>
+              <h1 style="margin:24px 0 0;font-size:21px;letter-spacing:-.025em">Opening Wersee ID</h1>
+              <p style="margin:10px 0 0;color:rgba(255,255,255,.48);font-size:14px;line-height:1.65">Securing your sign-in and return to the correct Wersee service.</p>
+              <a id="wersee-id-fallback-reload" href="/login" style="display:inline-flex;margin-top:22px;padding:11px 18px;border-radius:999px;background:#fff;color:#000;font-size:13px;font-weight:750;text-decoration:none">Reload sign-in</a>
+            </section>
+          </main>`;
+        document.getElementById('wersee-id-fallback-reload').href = location.href;
+      }
+    </script>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
