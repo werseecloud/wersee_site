@@ -17,7 +17,7 @@
   },
   "headers": [
     {
-      "source": "/auth/handoff",
+      "source": "/auth/(begin|handoff)",
       "headers": [
         {
           "key": "Cache-Control",
@@ -50,11 +50,11 @@
   "rewrites": [
     {
       "source": "/auth/handoff",
-      "destination": "/auth-handoff.html"
+      "destination": "/auth-handoff-v2.html"
     },
     {
       "source": "/auth/begin",
-      "destination": "/auth-bootstrap.html"
+      "destination": "/auth-bootstrap-v2.html"
     },
     {
       "source": "/api/site-events",
