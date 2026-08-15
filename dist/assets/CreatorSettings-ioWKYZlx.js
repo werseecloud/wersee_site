@@ -1,0 +1,2 @@
+import{j as t}from"./vendor-react-B9Ykv9Zt.js";import{CreatorRoute as r}from"./CreatorMode-C3RaLR-j.js";import"./vendor-ui--tx6IycZ.js";import"./index-DNugkBRD.js";import"./main-GsN8Y2KJ.js";import"./vendor-supabase-D_w519td.js";import"./authSessionCleanup-P6MUfmzP.js";import"./vendor-runtime-ckwbz45p.js";import"./privateProfile-C0hHRPuF.js";import"./vendor-utils-DGz17c-j.js";function x(){return t.jsx(r,{screen:"settings"})}export{x as default};
+//# sourceMappingURL=CreatorSettings-ioWKYZlx.js.map
