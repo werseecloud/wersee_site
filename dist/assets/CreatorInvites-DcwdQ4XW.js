@@ -1,0 +1,2 @@
+import{j as r}from"./vendor-react-B9Ykv9Zt.js";import{CreatorRoute as t}from"./CreatorMode-Bjxw5t2o.js";import"./vendor-ui-C4xmM1ci.js";import"./index-DNugkBRD.js";import"./main-BdyuxgYa.js";import"./vendor-supabase-D_w519td.js";import"./authSessionCleanup-P6MUfmzP.js";import"./vendor-runtime-ckwbz45p.js";import"./privateProfile-C0hHRPuF.js";import"./vendor-utils-DGz17c-j.js";function x(){return r.jsx(t,{screen:"invites"})}export{x as default};
+//# sourceMappingURL=CreatorInvites-DcwdQ4XW.js.map
